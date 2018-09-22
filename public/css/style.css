@@ -10,6 +10,10 @@ body{
 	font-family: Telephoto;
 	src: url(/fonts/Telephoto Regular.ttf);
 }
+@font-face {
+	font-family: Pacifico;
+	src: url(/fonts/Pacifico.ttf);
+}
 .header-nav{
 	background-color: #eb3d32;
 	color: white;
@@ -429,6 +433,13 @@ nav ul ul ul{
 		display: inline-block;
 	}
 }
+@media (max-width: 368px){
+	.head-title-nav h1 {
+		margin: 0;
+		font-weight: 900;
+		font-size: 35px;
+	}
+}
 
 /*sidenav*/
 .sidenav {
@@ -628,6 +639,7 @@ div#product-card.flip180{
 }
 #product-front img{
 	width: 100%;
+	height: 100%
 }
 .stats-container p{
 	font-size:16px;
@@ -1166,3 +1178,69 @@ footer{
 	}
 }
 /*end create*/
+
+/*login form*/
+.grup-regis-all{
+	padding: 0 30%;
+	margin: 50px 0;
+}
+.grup-login-all{
+	padding: 0 30%;
+	margin: 50px 0;
+	height: 261px;
+}
+.width-content form .form-group label{
+	color: #eb3d32;
+	margin-bottom: 0;
+}
+.width-content form .form-group{
+	margin-bottom: 5px;
+}
+.width-content form .form-group input{
+	background-color: white;
+	border: none;
+	border-bottom: 2px solid #000000;
+	border-radius: 0;
+	box-shadow: 0 0;
+	transition: .5s;
+	color: #F44336;
+	font-size: 30px;
+}
+.width-content form .form-group input:focus{
+	box-shadow: 10px 10px #F44336;
+	color: #F44336;
+}
+.width-content form button{
+	margin-top: 10px;
+	background-color: white;
+	border: 2px solid #eb3d32;
+	color: #eb3d32;
+	font-weight: 600;
+	padding: 5px 10px;
+}
+.width-content form button:hover{
+	box-shadow: 0px 0px 8px #828282;
+}
+.grup-regis-all h1{
+	font-family: Pacifico;
+	color: #eb3d32;
+	text-align: center;
+	text-decoration: underline;
+}
+.grup-login-all h1{
+	font-family: Pacifico;
+	color: #eb3d32;
+	text-align: center;
+	text-decoration: underline;
+}
+@media (max-width: 642px){
+	.grup-regis-all {
+		padding: 0 10%;
+		margin: 50px 0;
+	}
+	.grup-login-all{
+		padding: 0 10%;
+		margin: 50px 0;
+	}
+}
+/*end login form*/

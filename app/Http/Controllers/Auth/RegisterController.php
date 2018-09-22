@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\userRegistered;
+
 class RegisterController extends Controller
 {
     /*
@@ -62,9 +66,13 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $username = str_slug($data['username'], '_');
         return User::create([
             'name' => $data['name'],
+            'username' => $username,
             'email' => $data['email'],
+            'token'     => str_random(25),
+            'image'     => "https://www.gravatar.com/avatar/". md5( strtolower( trim(  $data['email'] ) ) ) ."?d=monsterid",
             'password' => bcrypt($data['password']),
         ]);
     }

@@ -21,8 +21,8 @@
 				</div>
 				<div class="right-contact">
 					<ul>
-						<li><a href="£!">About</a></li>
-						<li><a href="£!">Contact</a></li>
+						<li><a href="#!">About</a></li>
+						<li><a href="#!">Contact</a></li>
 					</ul>
 				</div>
 			</div>
@@ -54,7 +54,19 @@
 						<i class="fa fa-cart-plus" aria-hidden="true"></i>
 					</a>
 				</div>
-				<a href="#!"><h3>Login</h3></a> Or <a href="#!"><h3>Registerasi</h3></a>
+				@if (Auth::check())
+				<div class="image-profile">
+					<div class="img-profile-content">
+						<img src="{{Auth::user()->image}}" alt="">
+					</div>
+					<ul>
+						<li><a href="#!">Profile</a></li>
+						<li><a href="#!">Setting</a></li>
+					</ul>
+				</div>
+				@else
+				<a href="{{ route('login') }}"><h3>Login</h3></a> Or <a href="{{ route('register') }}"><h3>Registerasi</h3></a>
+				@endif
 			</div>
 		</div>
 	</div>
@@ -64,17 +76,27 @@
 				<li><a href="#!">Home</a></li>
 				<li><a href="#!">Produk</a>
 					<ul>
+						@if (Auth::check())
+						@if (Auth::user()->role == 1)
 						<li><a href="/tabahproduk">Tambah Produk</a></li>
+						@endif
+						@endif
 						<li><a href="#!">Ikan Hias</a></li>
 						<li><a href="#!">Ikan Cupang</a></li>
 					</ul>
 				</li>
+				@if (Auth::check())
+				@if (Auth::user()->role == 1 || Auth::user()->role == 2)
 				<li><a href="#!">User</a>
 					<ul>
 						<li><a href="#!">Pekerja</a></li>
+						@if (Auth::user()->role == 1)
 						<li><a href="#!">Pembeli</a></li>
+						@endif
 					</ul>
 				</li>
+				@endif
+				@endif
 				<li><a href="#!">Order</a>
 					<ul>
 						<li><a href="#!">Pesanan</a></li>
@@ -111,18 +133,18 @@
 			<div id="product-card">
 				<div id="product-front">
 					<div class="shadow"></div>
-					<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/245657/t-shirt.png" alt="" />
+					<img src="http://1.bp.blogspot.com/-D5_HK5KL9xc/UoSpJdWDeoI/AAAAAAAACK8/pTRC4OmBo70/s1600/jual-ikan-cupang.jpg" alt="" />
 					<div class="image_overlay"></div>
 					<a href="#!">
 						<div id="view_details">View details</div>
 					</a>
 					<div class="stats">        	
 						<div class="stats-container">
-							<span class="product_price">$39</span>
+							<span class="product_price">Rp. 13.000</span>
 							<a href="#!">
-								<span class="product_name">Adidas Originals</span> 
+								<span class="product_name">Cupang Camping</span> 
 							</a>   
-							<p>Men's running shirt</p>                                            
+							<p>Kualitas Terbaru ikan cupang</p>                                            
 
 							<div class="product-options">
 								<strong>SIZES</strong>
@@ -192,77 +214,77 @@
 					<div class="back-facing">
 						<p>Nama : Faridani Islami Baidu'ah <br> Wanita satu satunya di project PPL :D</p>
 						<p>
-						<p><a class="btn" href="https://en.wikipedia.org/wiki/Silver" target="_blank">More info</a></p>
+							<p><a class="btn" href="https://en.wikipedia.org/wiki/Silver" target="_blank">More info</a></p>
+						</div>
+					</div>
+
+					<div class="element-card">
+						<div class="front-facing">
+							<h1 class="abr">Jun</h1>
+							<p class="title">Analis</p>
+							<span class="atomic-number">18</span>
+							<span class="atomic-mass">9.18</span>
+						</div>
+						<div class="back-facing">
+							<p>Nama : junior shefrian pamungkas <br> setiap hari kayak gini, yo meninggal brooo</p>
+							<p>
+								<p><a class="btn" href="https://en.wikipedia.org/wiki/Gold" target="_blank">More info</a></p>
+							</div>
+						</div>
+
+						<div class="element-card">
+							<div class="front-facing">
+								<h1 class="abr">Ar</h1>
+								<p class="title">Programer</p>
+								<span class="atomic-number">18</span>
+								<span class="atomic-mass">9.18</span>
+							</div>
+							<div class="back-facing">
+								<p>Nama : M lazuardi imani <br> Hanya anak kos biasa yang ingin belajar banyak hal :D</p>
+								<p><a class="btn" href="https://www.instagram.com/junior" target="_blank">More info</a></p>
+							</div>
+						</div>
+
+						<div class="element-card">
+							<div class="front-facing">
+								<h1 class="abr">Il</h1>
+								<p class="title">Designer</p>
+								<span class="atomic-number">18</span>
+								<span class="atomic-mass">9.18</span>
+							</div>
+							<div class="back-facing">
+								<p>Nama : Ilham Erzan <br> Salam Designer lorr, kalo ndak jomblo enak ada yang nemeni design, kalo jomblo ya mening hell</p>
+								<p>
+									<p><a class="btn" href="https://www.instagram.com/ilhamer17" target="_blank">More info</a></p>
+								</div>
+							</div>
+
+							<div class="element-card">
+								<div class="front-facing">
+									<h1 class="abr">Br</h1>
+									<p class="title">Tester</p>
+									<span class="atomic-number">18</span>
+									<span class="atomic-mass">9.18</span>
+								</div>
+								<div class="back-facing">
+									<p>Nama : Barep Jati kusuma <br> Hanya Untuk Belajar</p>
+									<p>
+										<p><a class="btn" href="https://www.instagram.com/Barep" target="_blank">More info</a></p>
+									</div>
+								</div>
+
+							</div>
+						</div>
 					</div>
 				</div>
 
-				<div class="element-card">
-					<div class="front-facing">
-						<h1 class="abr">Jun</h1>
-						<p class="title">Analis</p>
-						<span class="atomic-number">18</span>
-						<span class="atomic-mass">9.18</span>
-					</div>
-					<div class="back-facing">
-						<p>Nama : junior shefrian pamungkas <br> setiap hari kayak gini, yo meninggal brooo</p>
-						<p>
-						<p><a class="btn" href="https://en.wikipedia.org/wiki/Gold" target="_blank">More info</a></p>
-					</div>
-				</div>
+				<footer>
+					<div class="col-xs-6">Copyright © Sekarang(2018)</div>
+					<div class="col-xs-6">Salam Damai To PPL-Agro</div>
+				</footer>
 
-				<div class="element-card">
-					<div class="front-facing">
-						<h1 class="abr">Ar</h1>
-						<p class="title">Programer</p>
-						<span class="atomic-number">18</span>
-						<span class="atomic-mass">9.18</span>
-					</div>
-					<div class="back-facing">
-						<p>Nama : M lazuardi imani <br> Hanya anak kos biasa yang ingin belajar banyak hal :D</p>
-						<p><a class="btn" href="https://www.instagram.com/junior" target="_blank">More info</a></p>
-					</div>
-				</div>
-
-				<div class="element-card">
-					<div class="front-facing">
-						<h1 class="abr">Il</h1>
-						<p class="title">Designer</p>
-						<span class="atomic-number">18</span>
-						<span class="atomic-mass">9.18</span>
-					</div>
-					<div class="back-facing">
-						<p>Nama : Ilham Erzan <br> Salam Designer lorr, kalo ndak jomblo enak ada yang nemeni design, kalo jomblo ya mening hell</p>
-						<p>
-						<p><a class="btn" href="https://www.instagram.com/ilhamer17" target="_blank">More info</a></p>
-					</div>
-				</div>
-
-				<div class="element-card">
-					<div class="front-facing">
-						<h1 class="abr">Br</h1>
-						<p class="title">Tester</p>
-						<span class="atomic-number">18</span>
-						<span class="atomic-mass">9.18</span>
-					</div>
-					<div class="back-facing">
-						<p>Nama : Barep Jati kusuma <br> Hanya Untuk Belajar</p>
-						<p>
-						<p><a class="btn" href="https://www.instagram.com/Barep" target="_blank">More info</a></p>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</div>
-</div>
-
-<footer>
-	<div class="col-xs-6">Copyright © Sekarang(2018)</div>
-	<div class="col-xs-6">Salam Damai To PPL-Agro</div>
-</footer>
-
-<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
-<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
-<script type="text/javascript" src="{{ asset('js/javascript.js') }}"></script>
-</body>
-</html>
+				<script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
+				<script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+				<script type="text/javascript" src="{{ asset('js/javascript.js') }}"></script>
+			</body>
+			</html>

@@ -31,7 +31,7 @@ Route::get('/tabahproduk', function () {
 	return view('ikan.create');
 });
 
-// Auth::routes();
+Auth::routes();
 
 // Route::group(['middleware' => 'mimin'], function(){
 // 	Route::get('/mimin', 'MiminController@dasboard');
