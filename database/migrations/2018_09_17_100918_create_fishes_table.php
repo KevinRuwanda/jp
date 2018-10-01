@@ -19,6 +19,8 @@ class CreateFishesTable extends Migration
             $table->integer('stok');
             $table->text('deskripsi');
             $table->text('image');
+            $table->string('slug',225);
+            $table->string('satuan',225);
             $table->integer('harga');
             $table->integer('user_id')->unsigned();
             $table->timestamps();

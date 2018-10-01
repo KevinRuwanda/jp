@@ -63,7 +63,11 @@ body{
 	left: 14%;
 	transform: translate(-50%,-50%);
 }
-.head-title-nav h1{
+.head-title-nav a,.head-title-nav a:focus,.head-title-nav a:hover{
+	color: white;
+	text-decoration: none;
+}
+.head-title-nav a h1{
 	margin: 0;
 	font-weight: 900;
 	font-size: 44px;
@@ -250,7 +254,7 @@ main {
 	display: inline-block;
 	position: absolute;
 	top: 63%;
-	right: 22%;
+	right: 19%;
 	font-weight: 900;
 	transform: translate(-50%,-50%);
 	padding: 5px;
@@ -434,7 +438,7 @@ nav ul ul ul{
 	}
 }
 @media (max-width: 368px){
-	.head-title-nav h1 {
+	.head-title-nav a h1 {
 		margin: 0;
 		font-weight: 900;
 		font-size: 35px;
@@ -1244,3 +1248,348 @@ footer{
 	}
 }
 /*end login form*/
+
+/* profile nav */
+.image-profile{
+	position: absolute;
+	right: 0;
+	top: 63%;
+	right: 10%;
+	font-weight: 900;
+	padding-bottom: 10px;
+	transform: translate(-50%,-50%);
+	z-index: 2;
+	text-align: center;
+}
+.image-profile-mobile{
+	padding-top: 10px;
+	box-sizing: border-box;
+	display: none;
+}
+.img-profile-content{
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	border-radius: 50%;
+	border: 2px solid #9d1c14;
+	text-align: center;
+}
+.img-profile-content img{
+	width: 100%;
+	height: 46px;
+	width: 46px;
+}
+.img-profile-content p{
+	position: absolute;
+	display: inline-block;
+	text-align: center;
+	transform: translate(-50%,-50%);
+	margin-top: 12px;
+}
+.img-profile-content-mobile{
+	width: 30px;
+	height: 30px;
+	overflow: hidden;
+	border-radius: 50%;
+	border: 2px solid #9d1c14;
+	text-align: center;
+	display: inline-block;
+}
+.img-profile-content-mobile img{
+	width: 100%;
+}
+.img-profile-content-mobile p{
+	position: absolute;
+	display: inline-block;
+	text-align: center;
+	transform: translate(-50%,-50%);
+	margin-top: 12px;
+}
+
+.image-profile ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	margin-top: 5px;
+	position: absolute;
+	display: none;
+	transition: .5s;
+	margin-top: 20px;
+}
+.image-profile ul li{
+	position: relative;
+	background-color: #ad0707;
+	padding: 5px 10px;
+	text-align: center;
+}
+.image-profile:hover ul{
+	display: block;
+}
+.image-profile ul li:hover{
+	background-color: #d14141;
+	color: white;
+}
+.image-profile ul li a:hover,.image-profile ul li a:focus,.image-profile ul li a{
+	text-decoration: none;
+	color: white;
+}
+.image-profile-mobile ul{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+	margin-top: 5px;
+	position: absolute;
+	display: none;
+	transition: .5s;
+	z-index: 5;
+}
+.image-profile-mobile ul li{
+	position: relative;
+	background-color: #ad0707;
+	padding: 5px 10px;
+	text-align: center;
+}
+.image-profile-mobile:hover ul{
+	display: block;
+}
+.image-profile-mobile ul li:hover{
+	background-color: #d14141;
+	color: white;
+	text-decoration: none;
+}
+.image-profile-mobile ul li a:hover{
+	text-decoration: none;
+	color: white;
+}
+.name-profile{
+	display: inline-block;
+	vertical-align: middle;
+	margin-top: -6px;
+}
+@media (max-width: 887px){
+	.image-profile{
+		right: 0;
+	}
+}
+@media (max-width: 665px){
+	.image-profile{
+		display: none;
+	}
+	.image-profile-mobile{
+		display: inline-block;
+	}
+}
+/* end profile nav */
+
+/* managemen ikan */
+.heder-pengola{
+	display: inline-block;
+	width: 100%;
+	margin: 20px 0;
+}
+.heder-pengola h1{
+	margin: 0;
+	padding: 15px;
+	background-color: #eb3d32;
+	color: white;
+	font-family: Pacifico;
+}
+.detail-transaksi{
+	display: inline-block;
+	width: 100%;
+	/* padding: 0 15px; */
+}
+.pekerja-list{
+	display: inline-block;
+	width: 100%;
+	background-color: white;
+	padding: 15px 10px;
+	/* border-radius: 7px; */
+}
+.pekerja-list:hover{
+	box-shadow: 2px 2px 9px #b0b0b0;
+}
+.pekerja-list .col-xs-4 i{
+	font-size: 42px;
+	color: #eb3d32;
+	line-height: inherit;
+}
+.produk-jual{
+	display: inline-block;
+	width: 100%;
+	background-color: white;
+	padding: 15px 10px;
+	/* border-radius: 7px; */
+}
+.produk-jual:hover{
+	box-shadow: 2px 2px 9px #b0b0b0;
+}
+.produk-jual .col-xs-4 i{
+	font-size: 42px;
+	color: #eb3d32;
+	line-height: inherit;
+}
+.detail-style p{
+	margin: 0;
+	font-size: 29px;
+	color: #eb3d32;
+}
+.keranjang-belanja{
+	display: inline-block;
+	width: 100%;
+	background-color: white;
+	padding: 15px 10px;
+	/* border-radius: 7px; */
+}
+.keranjang-belanja:hover{
+	box-shadow: 2px 2px 9px #b0b0b0;
+}
+.keranjang-belanja .col-xs-4 i{
+	font-size: 42px;
+	color: #eb3d32;
+	line-height: inherit;
+}
+.detail-style h3{
+	margin: 0;
+	font-weight: normal;
+	color: initial;
+}
+.grup-all-daftar-managemen{
+	display: inline-block;
+	width: 100%;
+	padding: 0 70px;
+}
+.detail-transaksi .jarak-margin:nth-child(1){
+	padding-right: 7px !important;
+}
+.detail-transaksi .jarak-margin:nth-child(2){
+	padding: 0 7px !important;
+}
+.detail-transaksi .jarak-margin:nth-child(3){
+	padding-left: 7px !important;
+}
+.button-create{
+	display: inline-block;
+	margin: 25px 0;
+	margin-top: 12px;
+}
+.button-create a,.button-create a:focus{
+	text-decoration: none;
+	background-color: white;
+	padding: 9px 10px;
+	color: #eb3d32;
+	font-weight: 900;
+	border: 2px solid #eb3d32;
+}
+.button-create a:hover{
+	text-decoration: none;
+	background-color: white;
+	padding: 9px 10px;
+	color: #eb3d32;
+	font-weight: 900;
+	box-shadow: 2px 2px 9px #afaeae;
+	border: 2px solid #eb3d32;
+}
+.well-content{
+	background-color: white;
+	padding: 8px;
+	border: 2px solid #eb3d32;
+}
+.table>thead>tr>th {
+	border-bottom: 2px solid #eb3d32 !important;
+}
+.daftar-ikan-crud{
+	display: inline-block;
+	width: 100%;
+	margin-bottom: 50px;
+}
+.button-aksi-table a,.button-aksi-table a:focus,.button-aksi-table a:hover{
+	text-decoration: none;
+}
+.button-aksi-table a:nth-child(1){
+	color: #eb3d32;
+	font-weight: 900;
+	border: 2px solid #eb3d32;
+	padding: 3px 6px;
+}
+.button-aksi-table a:nth-child(1):hover{
+	color: white;
+	background-color: #eb3d32;
+}
+.button-aksi-table a:nth-child(2){
+	color: #000000;
+	font-weight: 900;
+	border: 2px solid #000000;
+	padding: 3px 6px;
+}
+.button-aksi-table a:nth-child(2):hover{
+	color: white;
+	background-color: #000000;
+}
+.button-aksi-table a:nth-child(3){
+	color: #ff5f22;
+	font-weight: 900;
+	border: 2px solid #ff5f22;
+	padding: 3px 6px;
+}
+.button-aksi-table a:nth-child(3):hover{
+	color: white;
+	background-color: #ff5f22;
+}
+#title-moda-new{
+	text-align: center;
+	/* font-weight: 900; */
+	color: #eb3d32;
+	font-size: 27px;
+	font-family: Pacifico;
+}
+.moda-padding{
+	padding: 0 15px;
+}
+#new-modal-header{
+	padding: 15px;
+	padding-bottom: 0;
+	border-bottom: 0px solid #e5e5e5;
+}
+.lable-mod{
+	font-weight: normal;
+}
+#mod-inputan{
+	border: none;
+	background-color: #e9f3f5;
+	color: #313131;
+	font-weight: 900;
+	font-size: 18px
+}
+#select-satuan{
+	border: none;
+	background-color: #e9f3f5;
+	color: #313131;
+	font-weight: 900;
+	font-size: 18px;
+	width: 100%;
+	height: 36px;
+}
+@media (max-width: 767px){
+	.detail-transaksi .jarak-margin:nth-child(1){
+		padding-right: 0 !important;
+	}
+	.detail-transaksi .jarak-margin:nth-child(2){
+		padding: 0 !important;
+	}
+	.detail-transaksi .jarak-margin:nth-child(3){
+		padding-left: 0 !important;
+	}
+	.grup-all-daftar-managemen{
+		padding: 0 25px;
+	}
+	.heder-pengola h1{
+		text-align: center;
+	}
+	.moda-padding {
+		padding: 0;
+	}
+}
+/* emd managemen ikan */

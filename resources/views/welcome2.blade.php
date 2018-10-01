@@ -28,7 +28,7 @@
 			</div>
 			<div class="head-search-nav">
 				<div class="head-title-nav">
-					<h1>FishShop</h1>
+					<a href="/"><h1>FishShop</h1></a>
 					<span style="font-size:30px;cursor:pointer;position: absolute;right: 4px;top: 28%;" onclick="openNav()">&#9776;</span>
 				</div>
 				<div class="search-box">
@@ -44,52 +44,75 @@
 				<div class="go-icon"><i class="fa fa-arrow-right"></i></div>
 			</div>
 			<div class="right-side-nav">
-				<a href="#!">
-					<i class="fa fa-cart-plus" aria-hidden="true"></i>
+				@if (Auth::check())
+				@if (Auth::user()->role == 3)
+				<a href="#!" style="font-size: 23px;">
+					<i class="fa fa-cart-plus" aria-hidden="true"></i> (0)
 				</a>
+				@endif
+				@endif
 			</div>
+			@if (Auth::check())
+			<div class="image-profile">
+				<div class="img-profile-content">
+					<img src="{{Auth::user()->image}}" alt="">
+					<p>{{Auth::user()->name}}</p>
+				</div>
+				<ul>
+					<li><a href="#!">Setting</a></li>
+					<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+					Logout</a>
+					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> {{ csrf_field() }} </form></li>
+				</ul>
+			</div>
+			@endif
 			<div class="sign-login-side-right">
 				<div class="icon-cart">
-					<a href="#!">
-						<i class="fa fa-cart-plus" aria-hidden="true"></i>
+					@if (Auth::check())
+					@if (Auth::user()->role == 3)
+					<a href="#!" style="font-size: 20px;">
+						<i class="fa fa-cart-plus" aria-hidden="true"></i> (0)
 					</a>
+					@endif
+					@endif
 				</div>
 				@if (Auth::check())
-				<div class="image-profile">
-					<div class="img-profile-content">
+				<div class="image-profile-mobile">
+					<div class="img-profile-content-mobile">
 						<img src="{{Auth::user()->image}}" alt="">
 					</div>
+					<div class="name-profile"><p>{{Auth::user()->name}}</p></div>
 					<ul>
-						<li><a href="#!">Profile</a></li>
 						<li><a href="#!">Setting</a></li>
+						<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+						Logout</a>
+						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> {{ csrf_field() }} </form></li>
 					</ul>
 				</div>
-				@else
+				@endif
+				@if (!Auth::check())
 				<a href="{{ route('login') }}"><h3>Login</h3></a> Or <a href="{{ route('register') }}"><h3>Registerasi</h3></a>
 				@endif
 			</div>
 		</div>
 	</div>
 	<div class="menu-store">
+		@if (Auth::check())
 		<nav>
 			<ul>
-				<li><a href="#!">Home</a></li>
-				<li><a href="#!">Produk</a>
-					<ul>
-						@if (Auth::check())
-						@if (Auth::user()->role == 1)
-						<li><a href="/tabahproduk">Tambah Produk</a></li>
-						@endif
-						@endif
-						<li><a href="#!">Ikan Hias</a></li>
-						<li><a href="#!">Ikan Cupang</a></li>
-					</ul>
-				</li>
+				<li><a href="/">Home</a></li>
 				@if (Auth::check())
-				@if (Auth::user()->role == 1 || Auth::user()->role == 2)
+				@if (Auth::user()->role == 1)
+				<li>
+					<a href="/produk">Produk</a>
+				</li>
+				@endif
+				@endif
+				@if (Auth::check())
+				@if (Auth::user()->role == 1)
 				<li><a href="#!">User</a>
 					<ul>
-						<li><a href="#!">Pekerja</a></li>
+						<li><a href="/pekerja">Pekerja</a></li>
 						@if (Auth::user()->role == 1)
 						<li><a href="#!">Pembeli</a></li>
 						@endif
@@ -106,6 +129,7 @@
 				</li>
 			</ul>
 		</nav>
+		@endif
 	</div>
 </div>
 
@@ -228,7 +252,7 @@
 						<div class="back-facing">
 							<p>Nama : junior shefrian pamungkas <br> setiap hari kayak gini, yo meninggal brooo</p>
 							<p>
-								<p><a class="btn" href="https://en.wikipedia.org/wiki/Gold" target="_blank">More info</a></p>
+								<p><a class="btn" href="https://www.instagram.com/junior" target="_blank">More info</a></p>
 							</div>
 						</div>
 
@@ -241,7 +265,7 @@
 							</div>
 							<div class="back-facing">
 								<p>Nama : M lazuardi imani <br> Hanya anak kos biasa yang ingin belajar banyak hal :D</p>
-								<p><a class="btn" href="https://www.instagram.com/junior" target="_blank">More info</a></p>
+								<p><a class="btn" href="https://www.instagram.com/lazuardii8" target="_blank">More info</a></p>
 							</div>
 						</div>
 

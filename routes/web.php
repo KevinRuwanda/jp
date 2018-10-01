@@ -11,13 +11,18 @@
 |
 */
 
-// Route::group(['middleware' => 'auth'], function(){
-// 	Route::resource('Product', 'ProductController', ['except' => ['index','show']]);
-// 	Route::resource('Setting', 'SettingController', ['except' => ['index','show']]);
-// 	Route::resource('Transaction', 'TransactionController', ['except' => ['index','show']]);
-// 	Route::resource('Order', 'OrderController', ['except' => ['index','show']]);
-// 	Route::resource('Profile', 'ProfileController', ['except' => ['index','show']]);
-// });
+Route::group(['middleware' => 'auth'], function(){
+	Route::resource('produk', 'ProdukController');
+	Route::get('/produk/{id}/destroy', 'ProdukController@destroy');
+	
+	Route::resource('pekerja', 'PekerjaController');
+	Route::resource('pesanan', 'PesananController');
+	Route::resource('transaksi', 'TransaksiController');
+	Route::resource('Setting', 'SettingController', ['except' => ['index','show']]);
+	Route::resource('Transaction', 'TransactionController', ['except' => ['index','show']]);
+	Route::resource('Order', 'OrderController', ['except' => ['index','show']]);
+	Route::resource('Profile', 'ProfileController', ['except' => ['index','show']]);
+});
 
 Route::get('/home', function () {
 	return view('welcome2');
@@ -27,9 +32,6 @@ Route::get('/', function () {
 });
 
 // hapus nantik
-Route::get('/tabahproduk', function () {
-	return view('ikan.create');
-});
 
 Auth::routes();
 

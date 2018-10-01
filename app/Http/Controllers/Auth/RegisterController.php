@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\data;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -67,7 +68,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $username = str_slug($data['username'], '_');
-        return User::create([
+
+
+         $user=User::create([
             'name' => $data['name'],
             'username' => $username,
             'email' => $data['email'],
@@ -75,5 +78,8 @@ class RegisterController extends Controller
             'image'     => "https://www.gravatar.com/avatar/". md5( strtolower( trim(  $data['email'] ) ) ) ."?d=monsterid",
             'password' => bcrypt($data['password']),
         ]);
+         data::create([
+            'user_id' =>  $user->id,
+         ]);
     }
 }

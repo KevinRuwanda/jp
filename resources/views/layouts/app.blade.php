@@ -10,104 +10,128 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lightbox.css') }}">
-
+    @yield('style')
 </head>
 <body>
 
- <div class="header-nav">
-    <div class="grup-all">
-        <div class="nav-top">
-            <div class="head-title">
-                <p>We are fish lover</p>
+    <div class="header-nav">
+        <div class="grup-all">
+            <div class="nav-top">
+                <div class="head-title">
+                    <p>We are fish lover</p>
+                </div>
+                <div class="right-contact">
+                    <ul>
+                        <li><a href="#!">About</a></li>
+                        <li><a href="#!">Contact</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="right-contact">
-                <ul>
-                    <li><a href="#!">About</a></li>
-                    <li><a href="#!">Contact</a></li>
-                </ul>
+            <div class="head-search-nav">
+                <div class="head-title-nav">
+                    <a href="/"><h1>FishShop</h1></a>
+                    <span style="font-size:30px;cursor:pointer;position: absolute;right: 4px;top: 28%;" onclick="openNav()">&#9776;</span>
+                </div>
+                <div class="search-box">
+                    <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
+                    <form action="" class="search-form">
+                        <input type="text" placeholder="Search" id="search" autocomplete="off">
+                    </form>
+                    <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
+                    xml:space="preserve">
+                    <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280"/>
+                    <path class="border" d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280"/>
+                </svg>
+                <div class="go-icon"><i class="fa fa-arrow-right"></i></div>
             </div>
-        </div>
-        <div class="head-search-nav">
-            <div class="head-title-nav">
-                <h1>FishShop</h1>
-                <span style="font-size:30px;cursor:pointer;position: absolute;right: 4px;top: 28%;" onclick="openNav()">&#9776;</span>
-            </div>
-            <div class="search-box">
-                <div class="search-icon"><i class="fa fa-search search-icon"></i></div>
-                <form action="" class="search-form">
-                    <input type="text" placeholder="Search" id="search" autocomplete="off">
-                </form>
-                <svg class="search-border" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:a="http://ns.adobe.com/AdobeSVGViewerExtensions/3.0/" x="0px" y="0px" viewBox="0 0 671 111" style="enable-background:new 0 0 671 111;"
-                xml:space="preserve">
-                <path class="border" d="M335.5,108.5h-280c-29.3,0-53-23.7-53-53v0c0-29.3,23.7-53,53-53h280"/>
-                <path class="border" d="M335.5,108.5h280c29.3,0,53-23.7,53-53v0c0-29.3-23.7-53-53-53h-280"/>
-            </svg>
-            <div class="go-icon"><i class="fa fa-arrow-right"></i></div>
-        </div>
-        <div class="right-side-nav">
-            <a href="#!">
-                <i class="fa fa-cart-plus" aria-hidden="true"></i>
-            </a>
-        </div>
-        <div class="sign-login-side-right">
-            <div class="icon-cart">
-                <a href="#!">
-                    <i class="fa fa-cart-plus" aria-hidden="true"></i>
+            <div class="right-side-nav">
+                @if (Auth::check())
+                @if (Auth::user()->role == 3)
+                <a href="#!" style="font-size: 23px;">
+                    <i class="fa fa-cart-plus" aria-hidden="true"></i> (0)
                 </a>
+                @endif
+                @endif
             </div>
             @if (Auth::check())
             <div class="image-profile">
                 <div class="img-profile-content">
                     <img src="{{Auth::user()->image}}" alt="">
+                    <p>{{Auth::user()->name}}</p>
                 </div>
                 <ul>
-                    <li><a href="#!">Profile</a></li>
                     <li><a href="#!">Setting</a></li>
+                    <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout</a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> {{ csrf_field() }} </form></li>
                 </ul>
             </div>
-            @else
-            <a href="{{ route('login') }}"><h3>Login</h3></a> Or <a href="{{ route('register') }}"><h3>Registerasi</h3></a>
             @endif
+            <div class="sign-login-side-right">
+                <div class="icon-cart">
+                    @if (Auth::check())
+                    @if (Auth::user()->role == 3)
+                    <a href="#!" style="font-size: 20px;">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i> (0)
+                    </a>
+                    @endif
+                    @endif
+                </div>
+                @if (Auth::check())
+                <div class="image-profile-mobile">
+                    <div class="img-profile-content-mobile">
+                        <img src="{{Auth::user()->image}}" alt="">
+                    </div>
+                    <div class="name-profile"><p>{{Auth::user()->name}}</p></div>
+                    <ul>
+                        <li><a href="#!">Setting</a></li>
+                        <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> {{ csrf_field() }} </form></li>
+                    </ul>
+                </div>
+                @endif
+                @if (!Auth::check())
+                <a href="{{ route('login') }}"><h3>Login</h3></a> Or <a href="{{ route('register') }}"><h3>Registerasi</h3></a>
+                @endif
+            </div>
         </div>
     </div>
-</div>
-<div class="menu-store">
-    <nav>
-        <ul>
-            <li><a href="#!">Home</a></li>
-            <li><a href="#!">Produk</a>
-                <ul>
-                    @if (Auth::check())
-                    @if (Auth::user()->role == 1)
-                    <li><a href="/tabahproduk">Tambah Produk</a></li>
-                    @endif
-                    @endif
-                    <li><a href="#!">Ikan Hias</a></li>
-                    <li><a href="#!">Ikan Cupang</a></li>
-                </ul>
-            </li>
-            @if (Auth::check())
-            @if (Auth::user()->role == 1 || Auth::user()->role == 2)
-            <li><a href="#!">User</a>
-                <ul>
-                    <li><a href="#!">Pekerja</a></li>
-                    @if (Auth::user()->role == 1)
-                    <li><a href="#!">Pembeli</a></li>
-                    @endif
-                </ul>
-            </li>
-            @endif
-            @endif
-            <li><a href="#!">Order</a>
-                <ul>
-                    <li><a href="#!">Pesanan</a></li>
-                    <li><a href="#!">Transaksi</a></li>
-                    <li><a href="#!">History</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-</div>
+    <div class="menu-store">
+        @if (Auth::check())
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                @if (Auth::check())
+                @if (Auth::user()->role == 1)
+                <li>
+                    <a href="/produk">Produk</a>
+                </li>
+                @endif
+                @endif
+                @if (Auth::check())
+                @if (Auth::user()->role == 1)
+                <li><a href="#!">User</a>
+                    <ul>
+                        <li><a href="/pekerja">Pekerja</a></li>
+                        @if (Auth::user()->role == 1)
+                        <li><a href="#!">Pembeli</a></li>
+                        @endif
+                    </ul>
+                </li>
+                @endif
+                @endif
+                <li><a href="#!">Order</a>
+                    <ul>
+                        <li><a href="#!">Pesanan</a></li>
+                        <li><a href="#!">Transaksi</a></li>
+                        <li><a href="#!">History</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        @endif
+    </div>
 </div>
 
 <div id="mySidenav" class="sidenav">
@@ -135,6 +159,7 @@
 <script src="{{ asset('js/tinymce/tinymce.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/tinymcescript.js') }}" type="text/javascript"></script>
 <script src="{{ asset('js/lightbox.js') }}" type="text/javascript"></script>
+@yield('script')
 <script type="text/javascript" src="{{ asset('js/javascript.js') }}"></script>
 </body>
 </html>

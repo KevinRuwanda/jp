@@ -7,13 +7,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+	use Notifiable;
 
-    protected $fillable = [
-        'name', 'email', 'password','token','role','image','username'
-    ];
+	protected $fillable = [
+		'name', 'email', 'password','token','role','image','username'
+	];
 
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+	protected $hidden = [
+		'password', 'remember_token',
+	];
+
+	public function produks()
+	{
+		return $this->hasMany('App\Produk');
+	}
+	public function data()
+	{
+		return $this->hasOne('App\data');
+	}
 }
