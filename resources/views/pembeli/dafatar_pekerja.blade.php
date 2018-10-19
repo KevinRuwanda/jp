@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Tambah Pekerja')
+@section('title', 'Pembeli')
 @section('style')
 <style type="text/css">
 body{
@@ -11,7 +11,7 @@ body{
 
 <div class="head-pengola-produk">
 	<div class="heder-pengola">
-		<h1>Managemen Pekerja</h1>
+		<h1>Managemen Pembeli</h1>
 	</div>
 </div>
 

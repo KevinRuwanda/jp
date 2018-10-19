@@ -16,20 +16,25 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/produk/{id}/destroy', 'ProdukController@destroy');
 	
 	Route::resource('pekerja', 'PekerjaController');
+	Route::get('/pekerja/{id}/destroy', 'PekerjaController@destroy');
+	Route::get('/pembeli', 'PekerjaController@pembeli');
+
+	Route::get('/setting/{id}', 'HomeController@setting');
+	Route::put('/Setting-edit/{id}', 'HomeController@updateProfile');
+
 	Route::resource('pesanan', 'PesananController');
 	Route::resource('transaksi', 'TransaksiController');
 	Route::resource('Setting', 'SettingController', ['except' => ['index','show']]);
 	Route::resource('Transaction', 'TransactionController', ['except' => ['index','show']]);
 	Route::resource('Order', 'OrderController', ['except' => ['index','show']]);
 	Route::resource('Profile', 'ProfileController', ['except' => ['index','show']]);
+
+	Route::put('/Data/keamanan/{id}', 'PekerjaController@update_keamanan');
 });
 
-Route::get('/home', function () {
-	return view('welcome2');
-});
-Route::get('/', function () {
-	return view('welcome2');
-});
+
+Route::get('/home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
 // hapus nantik
 

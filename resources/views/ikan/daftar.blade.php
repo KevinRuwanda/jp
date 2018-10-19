@@ -121,6 +121,7 @@
 								<option>Kg</option>
 								<option>Ekor</option>
 								<option>Ons</option>
+								<option>Satuan</option>
 								<option>Cm</option>
 								<option>inchi</option>
 								<option>liter</option>
@@ -193,6 +194,7 @@
 								<option {{strcasecmp($produk->satuan, 'kg') == 0  ? 'selected' : ''}}>Kg</option>
 								<option {{strcasecmp($produk->satuan, 'Ekor') == 0  ? 'selected' : ''}}>Ekor</option>
 								<option {{strcasecmp($produk->satuan, 'Ons') == 0  ? 'selected' : ''}}>Ons</option>
+								<option {{strcasecmp($produk->satuan, 'Satuan') == 0  ? 'selected' : ''}}>Satuan</option>
 								<option {{strcasecmp($produk->satuan, 'Cm') == 0  ? 'selected' : ''}}>Cm</option>
 								<option {{strcasecmp($produk->satuan, 'inchi') == 0  ? 'selected' : ''}}>inchi</option>
 								<option {{strcasecmp($produk->satuan, 'liter') == 0  ? 'selected' : ''}}>liter</option>

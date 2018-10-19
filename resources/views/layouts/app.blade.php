@@ -56,11 +56,13 @@
             @if (Auth::check())
             <div class="image-profile">
                 <div class="img-profile-content">
-                    <img src="{{Auth::user()->image}}" alt="">
+                    <img src="@if (Auth::user()->image == null) https://www.gravatar.com/avatar/ @else {{ asset('image/projek/'.Auth::user()->image) }} @endif" alt="">
                     <p>{{Auth::user()->name}}</p>
                 </div>
                 <ul>
-                    <li><a href="#!">Setting</a></li>
+                    @if (Auth::user()->role !=1)
+                        <li><a href="/setting/{{Auth::user()->id}}">Setting</a></li>
+                    @endif
                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout</a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> {{ csrf_field() }} </form></li>
@@ -80,7 +82,7 @@
                 @if (Auth::check())
                 <div class="image-profile-mobile">
                     <div class="img-profile-content-mobile">
-                        <img src="{{Auth::user()->image}}" alt="">
+                        <img src="@if (Auth::user()->image == null) https://www.gravatar.com/avatar/ @else {{ asset('image/projek/'.Auth::user()->image) }} @endif" alt="">
                     </div>
                     <div class="name-profile"><p>{{Auth::user()->name}}</p></div>
                     <ul>

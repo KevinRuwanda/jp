@@ -55,11 +55,13 @@
 			@if (Auth::check())
 			<div class="image-profile">
 				<div class="img-profile-content">
-					<img src="{{Auth::user()->image}}" alt="">
+					<img src="@if (Auth::user()->image == null) https://www.gravatar.com/avatar/ @else {{ asset('image/projek/'.Auth::user()->image) }} @endif" alt="">
 					<p>{{Auth::user()->name}}</p>
 				</div>
 				<ul>
-					<li><a href="#!">Setting</a></li>
+					@if (Auth::user()->role !=1)
+						<li><a href="/setting/{{Auth::user()->id}}">Setting</a></li>
+					@endif
 					<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 					Logout</a>
 					<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> {{ csrf_field() }} </form></li>
@@ -79,7 +81,7 @@
 				@if (Auth::check())
 				<div class="image-profile-mobile">
 					<div class="img-profile-content-mobile">
-						<img src="{{Auth::user()->image}}" alt="">
+						<img src="@if (Auth::user()->image == null) https://www.gravatar.com/avatar/ @else {{ asset('image/projek/'.Auth::user()->image) }} @endif" alt="">
 					</div>
 					<div class="name-profile"><p>{{Auth::user()->name}}</p></div>
 					<ul>
@@ -150,36 +152,31 @@
 	<div class="head-title-transaksi">
 		<h3>Produk ikan hias</h3>
 	</div>
-	@for ($i = 0; $i <16 ; $i++)
+	@foreach ($produks as $produk)
 	<div class="col-xs-12 col-sm-6 col-md-3" id="solver-card">
 
 		<div id="make-3D-space">
 			<div id="product-card">
 				<div id="product-front">
 					<div class="shadow"></div>
-					<img src="http://1.bp.blogspot.com/-D5_HK5KL9xc/UoSpJdWDeoI/AAAAAAAACK8/pTRC4OmBo70/s1600/jual-ikan-cupang.jpg" alt="" />
+					<img src="{{$produk->image}}" alt="" />
 					<div class="image_overlay"></div>
 					<a href="#!">
 						<div id="view_details">View details</div>
 					</a>
 					<div class="stats">        	
 						<div class="stats-container">
-							<span class="product_price">Rp. 13.000</span>
+							<span class="product_price">Rp. {{$produk->harga}}</span>
 							<a href="#!">
-								<span class="product_name">Cupang Camping</span> 
+								<span class="product_name">{{$produk->name}}</span> 
 							</a>   
-							<p>Kualitas Terbaru ikan cupang</p>                                            
+
+							<p style="margin: 0;padding-bottom:0 ;">Stok : <span style="color: black">{{ $produk->stok }}</span></p> 
+							<p style="margin: 0;padding-bottom:0 ;color: black;">{{ str_limit(trim(strip_tags($produk->deskripsi)), 35, '...') }}</p>                                              
 
 							<div class="product-options">
-								<strong>SIZES</strong>
-								<span>XS, S, M, L, XL, XXL</span>
-								<strong>COLORS</strong>
-								<div class="colors">
-									<div class="c-blue"><span></span></div>
-									<div class="c-red"><span></span></div>
-									<div class="c-white"><span></span></div>
-									<div class="c-green"><span></span></div>
-								</div>
+								<p style="margin: 0;padding-bottom:0 ;">Dijual</p>
+								<span style="color: black">{{$produk->satuan}}</span>
 							</div>                       
 						</div>                         
 					</div>
@@ -212,7 +209,7 @@
 		</div>	
 
 	</div>
-	@endfor
+	@endforeach
 </div>
 
 <div class="about-dev">

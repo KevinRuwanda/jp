@@ -25,4 +25,13 @@ class User extends Authenticatable
 	{
 		return $this->hasOne('App\data');
 	}
+
+	public function isAdmin()
+	{
+		if ($this->role == 1) {
+			return true;
+		} else {
+			return false;
+		}  
+	}
 }

@@ -75,7 +75,6 @@ class RegisterController extends Controller
             'username' => $username,
             'email' => $data['email'],
             'token'     => str_random(25),
-            'image'     => "https://www.gravatar.com/avatar/". md5( strtolower( trim(  $data['email'] ) ) ) ."?d=monsterid",
             'password' => bcrypt($data['password']),
         ]);
          data::create([
