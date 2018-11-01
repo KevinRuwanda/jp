@@ -17,11 +17,10 @@ class CreateTransactionsTable extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned();
             $table->String('status',225)->default('on proses');
-            $table->integer('pekerja_id')->unsigned();
+            $table->text('tujuan');
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('pekerja_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

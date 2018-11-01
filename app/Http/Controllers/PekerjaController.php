@@ -187,10 +187,15 @@ class PekerjaController extends Controller
         abort(404);  
       }
 
+     $image = $request->file('image');
+     $input['namefile'] = time().'-'.$image->getClientOriginalName();
+     $tempat = public_path('image/projek');
+     $image->move($tempat,$input['namefile']);
+
       $user->update([
         'name' => $request->name,
         'username' => $request->username,
-        'image'     => $request->image,
+        'image'     => $input['namefile'],
         'email' => $request->email
       ]); 
       $data->update([
@@ -225,17 +230,23 @@ class PekerjaController extends Controller
       'email' => 'required|string|email|max:255|unique:users',
       'password' => 'required|string|min:6|confirmed',
       'alamat' => 'required|string',
+      'image' => 'required',
       'username' => 'required|string',
       'nohp' => 'required|string',
     ]);
 
+     $image = $request->file('image');
+     $input['namefile'] = time().'-'.$image->getClientOriginalName();
+     $tempat = public_path('image/projek');
+     $image->move($tempat,$input['namefile']);
 
      if (Auth::check() && Auth::user()->role == 1) {
       $user = User::create([
         'name' => $request->name,
         'username' => $request->username,
-        'image'     => "https://www.gravatar.com/avatar/". md5( strtolower( trim(  $request->email ) ) ) ."?d=monsterid",
+        'image'     => $input['namefile'],
         'role'  => 2,
+        'status'  => 'kosong',
         'email' => $request->email,
         'token'     => str_random(25),
         'password' => bcrypt($request->password),

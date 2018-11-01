@@ -16,4 +16,8 @@ class Produk extends Model
 	{
 		return $this->belongsTo('App\User');
 	}
+	public function orders()
+	{
+		return $this->hasMany('App\order');
+	}
 }

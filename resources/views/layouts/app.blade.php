@@ -48,7 +48,7 @@
                 @if (Auth::check())
                 @if (Auth::user()->role == 3)
                 <a href="#!" style="font-size: 23px;">
-                    <i class="fa fa-cart-plus" aria-hidden="true"></i> (0)
+                    <i class="fa fa-cart-plus" aria-hidden="true"></i> ({{count(App\order::where('pemilik_id',Auth::user()->id)->where('status','proses')->get())}})
                 </a>
                 @endif
                 @endif
@@ -56,7 +56,7 @@
             @if (Auth::check())
             <div class="image-profile">
                 <div class="img-profile-content">
-                    <img src="@if (Auth::user()->image == null) https://www.gravatar.com/avatar/ @else {{ asset('image/projek/'.Auth::user()->image) }} @endif" alt="">
+                    <img src="@if (Auth::user()->image == null) {{ asset('image/avatartahilalats.jpg') }} @else {{ asset('image/projek/'.Auth::user()->image) }} @endif" alt="">
                     <p>{{Auth::user()->name}}</p>
                 </div>
                 <ul>
@@ -74,7 +74,7 @@
                     @if (Auth::check())
                     @if (Auth::user()->role == 3)
                     <a href="#!" style="font-size: 20px;">
-                        <i class="fa fa-cart-plus" aria-hidden="true"></i> (0)
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i> ({{count(App\order::where('pemilik_id',Auth::user()->id)->where('status','proses')->get())}})
                     </a>
                     @endif
                     @endif

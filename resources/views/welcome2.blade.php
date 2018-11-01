@@ -47,7 +47,7 @@
 				@if (Auth::check())
 				@if (Auth::user()->role == 3)
 				<a href="#!" style="font-size: 23px;">
-					<i class="fa fa-cart-plus" aria-hidden="true"></i> (0)
+					<i class="fa fa-cart-plus" aria-hidden="true"></i> ({{count(App\order::where('pemilik_id',Auth::user()->id)->where('status','proses')->get())}})
 				</a>
 				@endif
 				@endif
@@ -55,12 +55,12 @@
 			@if (Auth::check())
 			<div class="image-profile">
 				<div class="img-profile-content">
-					<img src="@if (Auth::user()->image == null) https://www.gravatar.com/avatar/ @else {{ asset('image/projek/'.Auth::user()->image) }} @endif" alt="">
+					<img src="@if (Auth::user()->image == null) {{ asset('image/avatartahilalats.jpg') }} @else {{ asset('image/projek/'.Auth::user()->image) }} @endif" alt="">
 					<p>{{Auth::user()->name}}</p>
 				</div>
 				<ul>
 					@if (Auth::user()->role !=1)
-						<li><a href="/setting/{{Auth::user()->id}}">Setting</a></li>
+					<li><a href="/setting/{{Auth::user()->id}}">Setting</a></li>
 					@endif
 					<li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 					Logout</a>
@@ -73,7 +73,7 @@
 					@if (Auth::check())
 					@if (Auth::user()->role == 3)
 					<a href="#!" style="font-size: 20px;">
-						<i class="fa fa-cart-plus" aria-hidden="true"></i> (0)
+						<i class="fa fa-cart-plus" aria-hidden="true"></i> ({{count(App\order::where('pemilik_id',Auth::user()->id)->where('status','proses')->get())}})
 					</a>
 					@endif
 					@endif
@@ -156,18 +156,22 @@
 	<div class="col-xs-12 col-sm-6 col-md-3" id="solver-card">
 
 		<div id="make-3D-space">
+			@if ($produk->stok <=0)
+			<div class="kosong-data-stok"></div>
+			<h1 id="sold-out-stok">Sold Out</h1>
+			@endif
 			<div id="product-card">
 				<div id="product-front">
 					<div class="shadow"></div>
-					<img src="{{$produk->image}}" alt="" />
+					<img src="{{ asset('image/projek/'.$produk->image) }}" alt="" />
 					<div class="image_overlay"></div>
-					<a href="#!">
+					<a href="/produk/{{$produk->slug}}">
 						<div id="view_details">View details</div>
 					</a>
 					<div class="stats">        	
 						<div class="stats-container">
 							<span class="product_price">Rp. {{$produk->harga}}</span>
-							<a href="#!">
+							<a href="/produk/{{$produk->slug}}">
 								<span class="product_name">{{$produk->name}}</span> 
 							</a>   
 

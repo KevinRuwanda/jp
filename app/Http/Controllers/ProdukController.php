@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\Produk;
+use Illuminate\Support\Facades\Storage;
+
 class ProdukController extends Controller
 {
     /**
@@ -43,7 +45,7 @@ class ProdukController extends Controller
             'stok'     => 'required|min:1',
             'harga'     => 'required|min:3',
             'satuan'     => 'required',
-            'image'     => 'required|min:4',
+            'image'     => 'required',
             'deskripsi' => 'required|min:8'
         ]);
         // menjadi slug
@@ -53,6 +55,13 @@ class ProdukController extends Controller
             $slug = $slug. '-' . time();
         }
 
+        // dd($slug);
+
+        $image = $request->file('image');
+        $input['namefile'] = time().'-'.$image->getClientOriginalName();
+        $tempat = public_path('image/projek');
+        $image->move($tempat,$input['namefile']);
+
         if (Auth::check() && Auth::user()->role == 1) {
           Produk::create([
             'name' => $request->name,
@@ -60,7 +69,7 @@ class ProdukController extends Controller
             'harga' => $request->harga,
             'slug'  => $slug,
             'deskripsi' => $request->deskripsi,
-            'image' => $request->image,
+            'image' => $input['namefile'],
             'satuan' => $request->satuan,
             'user_id'   => Auth::user()->id,
         ]);
@@ -74,9 +83,12 @@ class ProdukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        // dd('masuk');
+       $ikan = Produk::where('slug',$slug)->first();
+       // dd($ikan);
+       return view('ikan.single_ikan', compact('ikan'));
     }
 
     /**
@@ -106,7 +118,7 @@ class ProdukController extends Controller
             'stok'     => 'required|min:1',
             'harga'     => 'required|min:3',
             'satuan'     => 'required',
-            'image'     => 'required|min:4',
+            'image'     => 'required',
             'deskripsi' => 'required|min:8'
         ]);
 
@@ -116,23 +128,29 @@ class ProdukController extends Controller
         if (Produk::where('slug',$slug)->first() != null) {
             $slug = $slug. '-' . time();
         }
+
+        $image = $request->file('image');
+        $input['namefile'] = time().'-'.$image->getClientOriginalName();
+        $tempat = public_path('image/projek');
+        $image->move($tempat,$input['namefile']);
+
         if (Auth::check() && Auth::user()->role == 1) {
             $prodak->update([
-               'name' => $request->name,
-               'stok' => $request->stok,
-               'harga' => $request->harga,
-               'slug'  => $slug,
-               'deskripsi' => $request->deskripsi,
-               'image' => $request->image,
-               'satuan' => $request->satuan,
-               'user_id'   => Auth::user()->id,
-           ]);
+             'name' => $request->name,
+             'stok' => $request->stok,
+             'harga' => $request->harga,
+             'slug'  => $slug,
+             'deskripsi' => $request->deskripsi,
+             'image' => $input['namefile'],
+             'satuan' => $request->satuan,
+             'user_id'   => Auth::user()->id,
+         ]);
 
         }else {
-         abort(404);
-     }
-     return redirect('/produk');
- }
+           abort(404);
+       }
+       return redirect('/produk');
+   }
 
     /**
      * Remove the specified resource from storage.
@@ -142,14 +160,14 @@ class ProdukController extends Controller
      */
     public function destroy($id)
     {
-       $produk = Produk::findOrFail($id);
+     $produk = Produk::findOrFail($id);
 
-       if (Auth::check() && Auth::user()->role == 1) {
-          $produk->delete();
-      }else {
-       abort(404);
-   }
+     if (Auth::check() && Auth::user()->role == 1) {
+      $produk->delete();
+  }else {
+     abort(404);
+ }
 
-   return redirect('/produk');
+ return redirect('/produk');
 }
 }

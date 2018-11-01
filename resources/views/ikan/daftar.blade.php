@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Daftar Ikan')
+
 @section('style')
 <style type="text/css">
 	body{
@@ -8,6 +9,7 @@
 	}
 </style>
 @endsection
+
 @section('content')
 
 
@@ -101,7 +103,7 @@
 				<h4 class="modal-title" id="title-moda-new">Tambah Produk Ikan</h4>
 			</div>
 			<div class="modal-body">
-				<form action="/produk" method="POST">
+				<form action="/produk" method="POST" enctype="multipart/form-data">
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-5" id="solve-grid">
 							<label class="lable-mod" for="exampleInputEmail1">Nama Ikan</label>
@@ -131,7 +133,7 @@
 					<div class="moda-padding">
 						<div class="form-group">
 							<label class="lable-mod" for="exampleInputEmail1">Foto Ikan</label>
-							<input type="judul" name="image" class="form-control" value="{{ old('image') }}" id="mod-inputan" placeholder="Foto">
+							<input type="file" name="image" class="form-control" value="{{ old('image') }}" id="mod-inputan" placeholder="Foto">
 						</div>
 						<div class="form-group">
 							<label class="lable-mod" for="textarea-tinymce">Deskripsi</label> 
@@ -174,7 +176,7 @@
 				<h4 class="modal-title" id="title-moda-new">Edit Produk Ikan</h4>
 			</div>
 			<div class="modal-body">
-				<form action="/produk/{{ $produk->id }}" method="POST">
+				<form action="/produk/{{ $produk->id }}" method="POST"  enctype="multipart/form-data">
 					<div class="form-group">
 						<div class="col-xs-12 col-sm-5" id="solve-grid">
 							<label class="lable-mod" for="exampleInputEmail1">Nama Ikan</label>
@@ -204,7 +206,7 @@
 					<div class="moda-padding">
 						<div class="form-group">
 							<label class="lable-mod" for="exampleInputEmail1">Foto Ikan</label>
-							<input type="judul" name="image" class="form-control" value="{{ old('image') ? old('image') : $produk->image  }}" id="mod-inputan" placeholder="Foto">
+							<input type="file" name="image" class="form-control" value="{{ old('image') ? old('image') : $produk->image  }}" id="mod-inputan" placeholder="Foto">
 						</div>
 						<div class="form-group">
 							<label class="lable-mod" for="textarea-tinymce">Deskripsi</label> 

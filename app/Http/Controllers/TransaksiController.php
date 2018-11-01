@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\User;
+use App\order;
+use App\Produk;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -34,8 +38,8 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        
+ }
 
     /**
      * Display the specified resource.

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\User;
+use App\order;
+use App\Produk;
 use Illuminate\Http\Request;
 
 class PesananController extends Controller
@@ -34,8 +38,46 @@ class PesananController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        if (Auth::user()->role == 3) {
+           $this->validate($request,[
+            'jumlah' => 'required',
+        ]);
+           // dd('masuk');
+
+           $ikan = Produk::findOrFail($request->id_ikan);
+           if ($request->jumlah > $ikan->stok) {
+              return Redirect()->back()->withErrors(['Pembelian berlebih']);
+          }else if($request->jumlah <= 0){
+            return Redirect()->back()->withErrors(['Terjadi kesalahan']);
+        }else{
+         $ikan->update([
+            'stok'     => $ikan->stok - $request->jumlah,
+        ]);
+         
+         $order_ikan = order::where('produk_id',$request->id_ikan)->where('pemilik_id',Auth::user()->id)->first();
+         // dd($order_ikan->total_harga);
+         if ( order::where('produk_id',$request->id_ikan)->where('pemilik_id',Auth::user()->id)->first() != null) {
+           $order_ikan->update([
+            'jumlah' => $request->jumlah + $order_ikan->jumlah,
+            'total_harga' => ($request->jumlah * $ikan->harga) + $order_ikan->total_harga,
+           ]);
+           return Redirect('/');
+         }else{
+           order::create([
+            'jumlah' => $request->jumlah,
+            'total_harga' => $request->jumlah * $ikan->harga,
+            'pemilik_id' => Auth::user()->id,
+            'produk_id' => $request->id_ikan,
+        ]);
+           return Redirect('/');
+       }
+
+       return Redirect('/');
+
+   }
+
+}
+}
 
     /**
      * Display the specified resource.

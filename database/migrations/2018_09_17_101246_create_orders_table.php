@@ -19,9 +19,12 @@ class CreateOrdersTable extends Migration
             $table->integer('total_harga');
             $table->String('status',225)->default('proses');
             $table->integer('pekerja_id')->unsigned();
+            $table->integer('produk_id')->unsigned();
+            $table->integer('pemilik_id');
             $table->timestamps();
 
             $table->foreign('pekerja_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('produk_id')->references('id')->on('fishes')->onDelete('cascade');
         });
     }
 

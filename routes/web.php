@@ -12,7 +12,7 @@
 */
 
 Route::group(['middleware' => 'auth'], function(){
-	Route::resource('produk', 'ProdukController');
+	Route::resource('produk', 'ProdukController', ['except' => ['index','show']]);
 	Route::get('/produk/{id}/destroy', 'ProdukController@destroy');
 	
 	Route::resource('pekerja', 'PekerjaController');
@@ -23,6 +23,8 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::put('/Setting-edit/{id}', 'HomeController@updateProfile');
 
 	Route::resource('pesanan', 'PesananController');
+
+	
 	Route::resource('transaksi', 'TransaksiController');
 	Route::resource('Setting', 'SettingController', ['except' => ['index','show']]);
 	Route::resource('Transaction', 'TransactionController', ['except' => ['index','show']]);
@@ -35,6 +37,8 @@ Route::group(['middleware' => 'auth'], function(){
 
 Route::get('/home', 'HomeController@index');
 Route::get('/', 'HomeController@index');
+
+Route::resource('produk', 'ProdukController', ['only' => ['index','show']]);
 
 // hapus nantik
 

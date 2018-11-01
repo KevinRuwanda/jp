@@ -97,7 +97,7 @@ body{
 				<h4 class="modal-title" id="title-moda-new">Tambah Pekerja</h4>
 			</div>
 			<div class="modal-body">
-				<form  method="POST" action="/pekerja">
+				<form  method="POST" action="/pekerja" enctype="multipart/form-data">
 					<div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
 						<label for="username">Username</label>
 						<input type="text" class="form-control" name="username" id="username">
@@ -122,6 +122,15 @@ body{
 						@if ($errors->has('email'))
 						<span class="help-block">
 							<strong>{{ $errors->first('email') }}</strong>
+						</span>
+						@endif
+					</div>
+					<div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+						<label for="email">Foto</label>
+						<input type="file" class="form-control" name="image" id="image">
+						@if ($errors->has('image'))
+						<span class="help-block">
+							<strong>{{ $errors->first('image') }}</strong>
 						</span>
 						@endif
 					</div>
@@ -177,7 +186,7 @@ body{
 				<h4 class="modal-title" id="title-moda-new">Edit Pekerja</h4>
 			</div>
 			<div class="modal-body">
-				<form  method="POST" action="/Data/keamanan/{{$pekerja->id}}">
+				<form  method="POST" action="/Data/keamanan/{{$pekerja->id}}" enctype="multipart/form-data">
 					<div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
 						<label for="username">Username</label>
 						<input type="text" class="form-control" name="username" value="{{ old('username') ? old('username') : $pekerja->username  }}" id="username">
@@ -198,7 +207,7 @@ body{
 					</div>
 					<div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
 						<label for="name">Image</label>
-						<input type="text" class="form-control" name="image" value="{{ old('image') ? old('image') : $pekerja->image  }}" id="image">
+						<input type="file" class="form-control" name="image" value="{{ old('image') ? old('image') : $pekerja->image  }}" id="image">
 						@if ($errors->has('image'))
 						<span class="help-block">
 							<strong>{{ $errors->first('image') }}</strong>
