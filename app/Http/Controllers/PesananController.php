@@ -6,6 +6,7 @@ use Auth;
 use App\User;
 use App\order;
 use App\Produk;
+use App\transaksi;
 use Illuminate\Http\Request;
 
 class PesananController extends Controller
@@ -17,7 +18,9 @@ class PesananController extends Controller
      */
     public function index()
     {
-        //
+        $orders = order::where('pemilik_id',Auth::user()->id)->where('status','proses')->get();
+        // dd($orders);
+        return view('transaksi.pesanan', compact('orders'));
     }
 
     /**
@@ -53,16 +56,16 @@ class PesananController extends Controller
          $ikan->update([
             'stok'     => $ikan->stok - $request->jumlah,
         ]);
-         
+
          $order_ikan = order::where('produk_id',$request->id_ikan)->where('pemilik_id',Auth::user()->id)->first();
          // dd($order_ikan->total_harga);
-         if ( order::where('produk_id',$request->id_ikan)->where('pemilik_id',Auth::user()->id)->first() != null) {
+         if ( order::where('produk_id',$request->id_ikan)->where('status','proses')->where('pemilik_id',Auth::user()->id)->first() != null) {
            $order_ikan->update([
             'jumlah' => $request->jumlah + $order_ikan->jumlah,
             'total_harga' => ($request->jumlah * $ikan->harga) + $order_ikan->total_harga,
-           ]);
+        ]);
            return Redirect('/');
-         }else{
+       }else{
            order::create([
             'jumlah' => $request->jumlah,
             'total_harga' => $request->jumlah * $ikan->harga,
@@ -89,7 +92,61 @@ class PesananController extends Controller
     {
         //
     }
+    public function bayarProduk(Request $request)
+    {
+        // dd('masuk');
+        $transaksiGan = transaksi::join('orders', 'transactions.order_id', '=', 'orders.id')->where('orders.pemilik_id','=',Auth::user()->id)->where('orders.status','sudah')->where('transactions.id_pembayaran', null)->first();
+        
+        // dd($transaksiGan);
+        $id_pesanan = explode(",",$request->id_pesanan);
+        // dd($_pesanan[0]);
+        // dd($id_pesanan[0]);
+        if (empty($transaksiGan->totalBayar)) {
+            for ($i=0; $i < count($id_pesanan) ; $i++) { 
+                transaksi::create([
+                    'order_id' => $id_pesanan[$i],
+                    'totalBayar' => $request->jumlahTotal,
+                ]);
 
+                $udaptePesanan = order::findOrFail($id_pesanan[$i]);
+
+                $udaptePesanan->update([
+                    'status' => 'sudah'
+                ]);
+            }
+        }else{
+            for ($i=0; $i < count($id_pesanan) ; $i++) { 
+                transaksi::create([
+                    'order_id' => $id_pesanan[$i],
+                    'totalBayar' => $request->jumlahTotal + $transaksiGan->totalBayar,
+                ]);
+
+                $transaksis = transaksi::join('orders', 'transactions.order_id', '=', 'orders.id')->where('orders.pemilik_id','=',Auth::user()->id)->where('orders.status','sudah')->where('transactions.id_pembayaran', null)->get();
+
+                if (count($transaksis)>0) {
+                    foreach ($transaksis as $transaksi) {
+
+                       $transaksiUpdate = transaksi::where('order_id',$transaksi->id)->first();
+                       // dd($transaksiUpdate);
+
+                       $transaksiUpdate->update([
+                        'totalBayar' => $request->jumlahTotal + $transaksiGan->totalBayar,
+                    ]);
+                   }
+               }
+
+               $udaptePesanan = order::findOrFail($id_pesanan[$i]);
+
+               $udaptePesanan->update([
+                 'status' => 'sudah'
+             ]);
+           }
+       }
+
+
+       return redirect('/transaksi-pembayaran');
+
+   }
     /**
      * Show the form for editing the specified resource.
      *

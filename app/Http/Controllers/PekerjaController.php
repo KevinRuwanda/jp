@@ -269,7 +269,9 @@ class PekerjaController extends Controller
 
     public function pembeli()
     {
-      return view('pembeli.dafatar_pekerja');
+      $no=1;
+      $pembelis = User::where('role',3)->get();
+      return view('pembeli.dafatar_pembeli', compact('pembelis','no'));
     }
 
     public function show($id)

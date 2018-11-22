@@ -23,7 +23,11 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::put('/Setting-edit/{id}', 'HomeController@updateProfile');
 
 	Route::resource('pesanan', 'PesananController');
-
+	Route::post('/bayar-produk', 'PesananController@bayarProduk');
+	Route::get('/transaksi-pembayaran', 'TransaksiController@pembayaranProduk');
+	Route::post('/pembayaran/upload', 'TransaksiController@pembayaranUpload');
+	Route::get('/transaksi-berhasil', 'TransaksiController@ucapanBerhasil');
+	Route::get('/history', 'TransaksiController@historyPesanan');
 	
 	Route::resource('transaksi', 'TransaksiController');
 	Route::resource('Setting', 'SettingController', ['except' => ['index','show']]);

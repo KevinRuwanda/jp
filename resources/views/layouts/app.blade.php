@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
     <link rel="stylesheet" href="{{ asset('css/lightbox.css') }}">
+    
+ {{--    <script src="https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css" type="text/css"> --}}
+    
     @yield('style')
 </head>
 <body>
@@ -47,7 +53,7 @@
             <div class="right-side-nav">
                 @if (Auth::check())
                 @if (Auth::user()->role == 3)
-                <a href="#!" style="font-size: 23px;">
+                <a href="/pesanan" style="font-size: 23px;">
                     <i class="fa fa-cart-plus" aria-hidden="true"></i> ({{count(App\order::where('pemilik_id',Auth::user()->id)->where('status','proses')->get())}})
                 </a>
                 @endif
@@ -61,7 +67,7 @@
                 </div>
                 <ul>
                     @if (Auth::user()->role !=1)
-                        <li><a href="/setting/{{Auth::user()->id}}">Setting</a></li>
+                    <li><a href="/setting/{{Auth::user()->id}}">Setting</a></li>
                     @endif
                     <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     Logout</a>
@@ -73,7 +79,7 @@
                 <div class="icon-cart">
                     @if (Auth::check())
                     @if (Auth::user()->role == 3)
-                    <a href="#!" style="font-size: 20px;">
+                    <a href="/pesanan" style="font-size: 20px;">
                         <i class="fa fa-cart-plus" aria-hidden="true"></i> ({{count(App\order::where('pemilik_id',Auth::user()->id)->where('status','proses')->get())}})
                     </a>
                     @endif
@@ -117,7 +123,7 @@
                     <ul>
                         <li><a href="/pekerja">Pekerja</a></li>
                         @if (Auth::user()->role == 1)
-                        <li><a href="#!">Pembeli</a></li>
+                        <li><a href="/pembeli">Pembeli</a></li>
                         @endif
                     </ul>
                 </li>
@@ -125,9 +131,9 @@
                 @endif
                 <li><a href="#!">Order</a>
                     <ul>
-                        <li><a href="#!">Pesanan</a></li>
-                        <li><a href="#!">Transaksi</a></li>
-                        <li><a href="#!">History</a></li>
+                        <li><a href="/pesanan">Pesanan</a></li>
+                        <li><a href="/transaksi-pembayaran">Transaksi</a></li>
+                        <li><a href="/history">History</a></li>
                     </ul>
                 </li>
             </ul>

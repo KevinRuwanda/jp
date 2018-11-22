@@ -1,6 +1,8 @@
 html, body{
 	margin: 0;
 	padding: 0;
+	height: 100%;
+	width: 100%;
 	background-color: white;
 }
 body{
@@ -1662,3 +1664,227 @@ footer{
 	border-bottom: 5px solid white;
 }
 /*end single ikan*/
+
+/*pesanan single*/
+.image-produk-pesanan{
+	display: inline-block;
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+}
+.detail-pesanan-order{
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 7px;
+}
+.detail-pesanan-order h3{
+	margin-top: 0;
+	max-width: 525px;
+}
+.grup-all-pesanan{
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding: 5%;
+}
+.form-edit-pesanan tr td{
+	border: none;
+}
+.tambahan-pesanan-form{
+	width: 100px;
+	overflow: hidden;
+	/*float: right;	*/
+}
+.tambahan-pesanan-form input{
+	border: none;
+	color: #eb3d32;
+}
+#button-style-pesanan{
+	width: 100%;
+	background-color: #eb3d32;
+	border: none;
+	padding: 5px 0;
+	color: white;
+	font-weight: 900;
+	font-size: 15px;
+}
+/*end pesanan single*/
+
+/*map*/
+#map { 
+	position:absolute; top:0; bottom:0; width:100%; 
+}
+.geocoder {
+	position: absolute;
+	z-index: 1;
+	/* width: 50%; */
+	left: 50%;
+	transform: translate(-50%,-50%);
+	/* margin-left: -25%; */
+	top: 9%;
+}
+.mapboxgl-ctrl-geocoder { 
+	min-width:100%; 
+}
+.grup-peta{
+	display: inline-block;
+	width: 100%;
+	position: relative;
+	height: 500px;
+}
+/*end map*/
+
+/*pembayaran*/
+.pembayaran-content-baru{
+	height: 100%;
+	display: inline-block;
+	width: 100%;
+	position: relative;
+}
+.bagi-satu{
+	width: 50%;
+	height: 100%;
+	display: inline-block;
+	position: relative;
+	background-color: #eb3d32;
+}
+.bagi-dua{
+	width: 50%;
+	height: 100%;
+	display: inline-block;
+	float: right;
+	position: relative;
+}
+.grup-one{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	color: white;
+	text-align: center;
+}
+.grup-one p:nth-child(3){
+	margin-bottom: 0;
+	font-family: Telephoto;
+	font-weight: 900;
+	font-size: 20px;
+}
+.grup-one p:nth-child(4){
+	font-size: 18px;
+}
+.grup-one h1{
+	font-family: Pacifico;
+}
+.grup-two{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	background-color: #eb3d32;
+	color: white;
+	padding: 42px 7px;
+	padding-top: 20px;
+	border-radius: 9px;
+	box-shadow: 10px -10px #d2d2d2;
+}
+.grup-two h3{
+	margin-bottom: 22px;
+	margin-top: 0;
+	text-align: center;
+	font-family: Pacifico;
+}
+#formbayar-style .form-group:nth-child(1) input,#formbayar-style .form-group:nth-child(1) input:focus, #formbayar-style .form-group:nth-child(1) input:active{
+	background-color: #eb3d32;
+	text-align: center;
+	border: none;
+	border-radius: 0;
+	color: white;
+	border-bottom: 3px solid white;
+	outline-style: none;
+	font-size: 18px;
+}
+#formbayar-style .form-group:nth-child(2) input{
+	background-color: #eb3d32;
+	border: none;
+	border-radius: 0;
+	color: white;
+	border-bottom: 3px solid white;
+	outline-style: none;
+}
+#formbayar-style button{
+	color: white;
+	background-color: rgb(235, 61, 50);
+	border: 2px solid white;
+	padding: 5px 10px;
+}
+#formbayar-style button:hover{
+	color: rgb(235, 61, 50);
+	background-color: white;
+	border: 2px solid white;
+	padding: 5px 10px;
+}
+.grup-navigasi-pembayaran{
+	position: absolute;
+	top: 0;
+	color: white;
+	z-index: 1;
+	right: 0;
+}
+.grup-navigasi-pembayaran li{
+	display: inline-block;
+}
+.grup-navigasi-pembayaran li a, .grup-navigasi-pembayaran li a:hover,.grup-navigasi-pembayaran li a:focus{
+	color: white;
+	font-weight: 900;
+	font-size: 20px;
+	padding: 5px 10px;
+	text-decoration: none;
+}
+.grup-head-title-pesanan h1{
+	margin: 0;
+	font-weight: 900;
+	font-size: 44px;
+	margin-left: 10px;
+}
+.grup-head-title-pesanan h1 a,.grup-head-title-pesanan h1 a:hover,.grup-head-title-pesanan h1 a:focus{
+	text-decoration: none;
+	color: #eb3d32;
+}
+.grup-center-in-ucapan{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.grup-ucapan{
+	border: 2px solid #eb3d32;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	text-align: center;
+	padding: 10px 8px;
+}
+.grup-ucapan h1{
+	color: #eb3d32;
+	text-transform: capitalize;
+	font-family: Pacifico;
+}
+.grup-ucapan h4{
+	font-weight: 900;
+}
+.grup-ucapan h2{
+	margin-top: 0;
+	color: #eb3d32;
+	text-transform: capitalize;
+	font-family: Pacifico;
+}
+.grup-ucapan a,.grup-ucapan a:focus{
+	text-decoration: none;
+	font-weight: 900;
+}
+.grup-ucapan a:hover{
+	text-decoration: none;
+	font-weight: 900;
+	color: #eb3d32;
+}
+/*end pembayaran*/

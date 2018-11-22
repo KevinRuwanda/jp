@@ -46,7 +46,7 @@
 			<div class="right-side-nav">
 				@if (Auth::check())
 				@if (Auth::user()->role == 3)
-				<a href="#!" style="font-size: 23px;">
+				<a href="/pesanan" style="font-size: 23px;">
 					<i class="fa fa-cart-plus" aria-hidden="true"></i> ({{count(App\order::where('pemilik_id',Auth::user()->id)->where('status','proses')->get())}})
 				</a>
 				@endif
@@ -72,7 +72,7 @@
 				<div class="icon-cart">
 					@if (Auth::check())
 					@if (Auth::user()->role == 3)
-					<a href="#!" style="font-size: 20px;">
+					<a href="/pesanan" style="font-size: 20px;">
 						<i class="fa fa-cart-plus" aria-hidden="true"></i> ({{count(App\order::where('pemilik_id',Auth::user()->id)->where('status','proses')->get())}})
 					</a>
 					@endif
@@ -116,7 +116,7 @@
 					<ul>
 						<li><a href="/pekerja">Pekerja</a></li>
 						@if (Auth::user()->role == 1)
-						<li><a href="#!">Pembeli</a></li>
+						<li><a href="/pembeli">Pembeli</a></li>
 						@endif
 					</ul>
 				</li>
@@ -124,9 +124,9 @@
 				@endif
 				<li><a href="#!">Order</a>
 					<ul>
-						<li><a href="#!">Pesanan</a></li>
-						<li><a href="#!">Transaksi</a></li>
-						<li><a href="#!">History</a></li>
+						<li><a href="/pesanan">Pesanan</a></li>
+						<li><a href="/transaksi-pembayaran">Transaksi</a></li>
+						<li><a href="/history">History</a></li>
 					</ul>
 				</li>
 			</ul>
