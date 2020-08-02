@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="textarea-tinymce">Deskripsi</label> 
+			<label for="textarea-tinymce">Deskripsi</label>
 			<textarea name="deskripsi" rows="15" cols="80" id="textarea-tinymce" class="border-color-forum-create" placeholder="Deskripsi Ikan..."></textarea>
 		</div>
 		<button type="submit" class="btn btn-block btn-default">Submit</button>

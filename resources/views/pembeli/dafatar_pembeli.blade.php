@@ -23,7 +23,7 @@ body{
 					<i class="fa fa-briefcase" aria-hidden="true"></i>
 				</div>
 				<div class="col-xs-8 detail-style" style="text-align: right;">
-					<p>10</p>
+					<p>{{count($pekerjas)}}</p>
 					<h3>Pekerja</h3>
 				</div>
 			</div>
@@ -34,7 +34,7 @@ body{
 					<i class="fa fa-product-hunt" aria-hidden="true"></i>
 				</div>
 				<div class="col-xs-8 detail-style" style="text-align: right;">
-					<p>15</p>
+					<p>{{count($produks)}}</p>
 					<h3>Produk</h3>
 				</div>
 			</div>
@@ -45,16 +45,13 @@ body{
 					<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 				</div>
 				<div class="col-xs-8 detail-style" style="text-align: right;">
-					<p>12</p>
+					<p>{{count($transaksis)}}</p>
 					<h3>Transaksi</h3>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="daftar-ikan-crud">
-		<div class="button-create">
-			<a href="#!"  data-toggle="modal" data-target="#myModal">Tambah Pekerja</a>
-		</div>
 		<div class="well-content table-responsive">
 			<table class="table">
 				<thead>

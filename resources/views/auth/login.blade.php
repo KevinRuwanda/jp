@@ -4,14 +4,14 @@
 @section('content')
 
 <div class="grup-login-all">
-    <h1>Login Lur</h1>
+    <h1>Masuk Dulu</h1>
     <div class="width-content">
         <form method="POST" action="{{ route('login') }}">
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <label for="email">email</label>
+                <label for="email">Email</label>
                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
                 @if ($errors->has('email'))
-                <span class="help-block">
+                <span class="help-b lock">
                     <strong>{{ $errors->first('email') }}</strong>
                 </span>
                 @endif

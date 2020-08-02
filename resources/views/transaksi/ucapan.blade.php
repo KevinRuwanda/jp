@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-	<title>FishShop - Pembayaran</title>
+	<title>Terima Kasih</title>
 	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
@@ -16,10 +16,10 @@
 <body>
 	<div class="grup-center-in-ucapan">
 		<div class="grup-ucapan">
-			<h1>terimakasih telah membeli</h1>
-			<h4>From</h4>
-			<h2>FiShop Jember</h2>
-			<a href="/">Back To Home</a>
+			<h1>Terima Kasih sudah</h1>
+			<h4>Mengunjungi</h4>
+			<h2>Toko kami yang sepi ini...</h2>
+			<p><a href="/">Belanja lagi dong...</a></p>
 		</div>
 	</div>
 

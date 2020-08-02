@@ -14,7 +14,7 @@
 <div class="grup-all-pesanan">
 	<div class="col-sm-12 col-md-9">
 		<div class="pesanan-table-grup">
-			<div class="table-responsive">          
+			<div class="table-responsive">
 				<table class="table table-striped">
 					<form action="">
 						<thead>
@@ -39,7 +39,7 @@
 									</div>
 									<div class="detail-pesanan-order">
 										<h3>{{$order->produks->name}}</h3>
-										<p><a href="#!">hapus</a></p>
+										<p><a style="text-decoration: none;color: #eb3d32" href="/data-orders/{{$order->id}}/destroy" onclick="return confirm('Anda yakin menghapus pesanan??')"><i style="font-size: 20px" class="fa fa-trash-o" aria-hidden="true"></i></a></p>
 									</div>
 								</td>
 								<td>Rp {{$order->produks->harga}},-</td>
@@ -54,31 +54,31 @@
 	</div>
 	<div class="col-sm-12 col-md-3">
 		<div class="grup-detail-pembelian">
-			<h3>Ringkasan Pesanan</h3>         
+			<h3>Pesanan</h3>
 			<table style="width: 100%;">
 				<form action="/bayar-produk" method="POST" class="form-edit-pesanan" id="distance_form">
 					<tr>
 						<td>
-							<p>Subtotal</p>
+							<p>Total Pembayaran</p>
 						</td>
 						<td class="tambahan-pesanan-form">
-							<input type="text" readonly id="price2" value="0">
+							<input type="text" readonly id="price2" value="&nbsp;0">
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<p>Ongkir</p>
+							<p>Ongkos Kirim</p>
 						</td>
 						<td class="tambahan-pesanan-form">
-							<input type="text" readonly value="Gratis">
+							<input type="text" readonly value="&nbsp;Gratis Ongkir 12/12">
 						</td>
 					</tr>
-					<tr style="border-top: 2px solid #eb3d32;">
+					<tr style="border-top: 2px solid black;">
 						<td>
-							<p>Total</p>
+							<p>Total Keseluruhan</p>
 						</td>
 						<td class="tambahan-pesanan-form">
-							<input type="text" readonly id="price" name="jumlahTotal" value="0">
+							<input type="text" readonly id="price" name="jumlahTotal" value="&nbsp;0">
 						</td>
 					</tr>
 					<tr>
@@ -134,15 +134,15 @@
 
 <script type="text/javascript">
 
-	$('#select-all').click(function(event) {   
+	$('#select-all').click(function(event) {
 		if(this.checked) {
 
 			$(':checkbox').each(function() {
-				this.checked = true; 
+				this.checked = true;
 			});
 		} else {
 			$(':checkbox').each(function() {
-				this.checked = false;                       
+				this.checked = false;
 			});
 		}
 	});
@@ -163,7 +163,7 @@
 
 		if (id_pesanan[0] == null) {
 			id_pesanan.shift();
-		} 
+		}
 		$('#id_pesanan').val(id_pesanan.join(','));
 		// console.log(id_pesanan[0] == null);
 	});

@@ -8,6 +8,7 @@ use App\order;
 use App\Produk;
 use App\transaksi;
 use App\pembayaran;
+use App\pengiriman;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -36,39 +37,39 @@ class TransaksiController extends Controller
 
     public function pembayaranUpload(Request $request)
     {
-     $transaksis = transaksi::join('orders', 'transactions.order_id', '=', 'orders.id')->where('orders.pemilik_id','=',Auth::user()->id)->where('orders.status','sudah')->where('transactions.id_pembayaran', null)->get();
+       $transaksis = transaksi::join('orders', 'transactions.order_id', '=', 'orders.id')->where('orders.pemilik_id','=',Auth::user()->id)->where('orders.status','sudah')->where('transactions.id_pembayaran', null)->get();
 
 
-     $this->validate($request,[
+       $this->validate($request,[
         'norekening' => 'required|max:19',
         'image' => 'required'
     ]);
 
-     $image = $request->file('image');
-     $input['namefile'] = time().'-'.$image->getClientOriginalName();
-     $tempat = public_path('image/atm');
-     $image->move($tempat,$input['namefile']);
+       $image = $request->file('image');
+       $input['namefile'] = time().'-'.$image->getClientOriginalName();
+       $tempat = public_path('image/atm');
+       $image->move($tempat,$input['namefile']);
 
-     $pembayarantTransaksi = pembayaran::create([
+       $pembayarantTransaksi = pembayaran::create([
         'norekening' => $request->norekening,
         'fotoPembayaran'      => $input['namefile']
     ]);
 
     // dd($pembayarantTransaksi->id);
 
-     if (count($transaksis)>0) {
+       if (count($transaksis)>0) {
         foreach ($transaksis as $transaksi) {
 
-           $transaksiUpdate = transaksi::where('order_id',$transaksi->id)->first();
+         $transaksiUpdate = transaksi::where('order_id',$transaksi->id)->first();
 
-           $transaksiUpdate->update([
+         $transaksiUpdate->update([
             'id_pembayaran' => $pembayarantTransaksi->id,
             'status' => 'dibayar',
         ]);
-       }
-   }
+     }
+ }
 
-   return redirect('/transaksi-berhasil');
+ return redirect('/transaksi-berhasil');
 }
     /**
      * Show the form for creating a new resource.
@@ -90,10 +91,122 @@ class TransaksiController extends Controller
 
             return view('pembeli.history', compact('historys','no'));
         }else{
-         abort(404);
-     }
- }
+           abort(404);
+       }
+   }
 
+   public function getPembayaranverif()
+   {
+    $no = 1;
+    $verifikasiPembayran = transaksi::join('orders', 'transactions.order_id', '=', 'orders.id')->join('pembayaran', 'transactions.id_pembayaran', '=', 'pembayaran.id')->where('orders.status','sudah')->where('transactions.status', 'dibayar')->get();
+    return view('transaksi.verifikasi',compact('verifikasiPembayran','no'));
+}
+
+public function updatePembayaran(Request $request, $id)
+{
+    $pembayaran = pembayaran::findOrFail($id);
+    // $data = $pembayaran->update([
+    //     'status_pesanan' => $request->data
+    // ]);
+    if($request->data == 'diproses'){
+       $pengiriman  = pengiriman::where('pembayaran_id',$id)->first();
+       if ($pengiriman != null) {
+         $pengiriman->delete();
+     }
+     $data = $pembayaran->update([
+        'status_pesanan' => 'diproses'
+    ]);
+ }else if ($request->data == 'proses pengiriman') {
+     $pengiriman  = pengiriman::where('pembayaran_id',$id)->first();
+     if ($pengiriman != null) {
+         $pengiriman->delete();
+     }
+     $data = $pembayaran->update([
+        'status_pesanan' => 'proses pengiriman'
+    ]);
+ }else if($request->data == 'pengiriman'){
+    $pengiriman  = pengiriman::where('pembayaran_id',$id)->first();
+    if ($pengiriman != null) {
+        $data = $pembayaran->update([
+           'status_pesanan' => 'pengiriman'
+       ]);
+    }else{
+        $data = dd();
+    }
+}else if($request->data == 'sampai'){
+    $pengiriman = pengiriman::where('pembayaran_id',$id)->first();
+    if ($pengiriman == null) {
+       $data = dd();
+   } else {
+       $data =  $pembayaran->update([
+           'status_pesanan' => 'sampai'
+       ]);
+   }
+
+}
+
+    // return Response::json($data);
+return response()->json($data);
+}
+
+public function pengirimanDataPesanan()
+{
+   $no = 1;
+   $pengirimans = transaksi::join('orders', 'transactions.order_id', '=', 'orders.id')->join('pembayaran', 'transactions.id_pembayaran', '=', 'pembayaran.id')->join('pengiriman','pengiriman.pembayaran_id','=','pembayaran.id')->where('orders.status','sudah')->where('transactions.status', 'dibayar')->where('pengiriman.pekerja_id',Auth::user()->id)->where(function ($query)
+   {
+    $query->where('pembayaran.status_pesanan','pengiriman')->orWhere('pembayaran.status_pesanan','sampai');
+})->get();
+   return view('pekerja.pengiriman_pesanan_pekerja',compact('pengirimans','no'));
+}
+
+public function pengirimanPekerja(Request $request)
+{
+    $pengiriman = pengiriman::where('pembayaran_id', $request->id_pembayaran)->first();
+    $pembayaran = pembayaran::where('id',$request->id_pembayaran)->first();
+
+    $pembayaran->update([
+        'status_pesanan' => 'pengiriman'
+    ]);
+
+    if ($pengiriman == null ){
+        $data = pengiriman::create([
+            'pekerja_id' => $request->id_pekerja,
+            'pembayaran_id' => $request->id_pembayaran
+        ]);
+    } else {
+      $data = $pengiriman->update([
+        'pekerja_id' => $request->id_pekerja
+    ]);
+  }
+  return response()->json($data);
+}
+
+
+public function updatePaketPengiriman(Request $request)
+{
+   $pembayaran = pembayaran::where('id',$request->id_pembayaran)->first();
+   if ($request->pilihan == 'sampai') {
+       $data = $pembayaran->update([
+        'status_pesanan' => 'sampai'
+    ]);
+   } else if($request->pilihan == 'pengiriman'){
+       $data = $pembayaran->update([
+        'status_pesanan' => 'pengiriman'
+    ]);
+   }
+
+   return response()->json($data);
+
+}
+
+public function pengirimanPesanan()
+{
+    $no = 1;
+    $pengirimans = transaksi::join('orders', 'transactions.order_id', '=', 'orders.id')->join('pembayaran', 'transactions.id_pembayaran', '=', 'pembayaran.id')->where('orders.status','sudah')->where('transactions.status', 'dibayar')->where('pembayaran.status_pesanan','proses pengiriman')->get()
+    ;
+    $drivers = User::where('role',2)->get();
+    return view('transaksi.pengiriman',compact('pengirimans','no','drivers'));
+}
     /**
      * Store a newly created resource in storage.
      *

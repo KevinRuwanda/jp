@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
-	<title>FishShop - Pembayaran</title>
+	<title>Pembayaran</title>
 	<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
@@ -16,19 +16,10 @@
 <body>
 
 	<div class="pembayaran-content-baru">
-		<div class="bagi-satu">
-			<div class="grup-navigasi-pembayaran">
-				<ul>
-					<li><a href="/">Home</a></li>
-					<li><a href="/pesanan">Pesanan</a></li>
-					<li><a href="/transaksi-pembayaran">Transaksi</a></li>
-					<li><a href="/history">History</a></li>
-				</ul>
-			</div>
 			<div class="grup-one">
-				<h1>Bayar Produk</h1>
-				<h3 style="margin-bottom: 0">3432-5656-3434-5556</h3>
-				<h4 style="margin-top:0">Atas Nama Joko</h4>
+				<h1>Transfer ke</h1>
+				<h3 style="margin-bottom: 0">1123-3321-3390-9685</h3>
+				<h4 style="margin-top:0">A/N Dikri</h4>
 				<p>Total Pembayaran</p>
 				@if (empty($transaksi->totalBayar))
 				<p>Rp 0,-</p>
@@ -36,36 +27,33 @@
 				<p>Rp {{number_format($transaksi->totalBayar)}},-</p>
 				@endif
 			</div>
-		</div>
-		<div class="bagi-dua">
-			<div class="grup-head-title-pesanan">
-				<h1><a href="/">FishShop</a></h1>
-			</div>
 			<div class="grup-two">
-				<h3>Upload Bukti Pembayaran</h3>
-				<form action="/pembayaran/upload" method="POST" enctype="multipart/form-data" id="formbayar-style">
-					<div class="form-group">
-						<label for="email">No Rekening</label>
-						<input type="text" class="form-control" id="credit-card" name="norekening" placeholder="xxxx-xxxx-xxxx-xxxx" id="email">
-					</div>
-					<div class="form-group">
-						<label for="pwd">Upload Bukti</label>
-						<input type="file" class="form-control" placeholder="image.jpg" name="image" id="pwd">
-					</div>
-					{{ csrf_field() }}
-					<button type="submit">Upload</button>
-				</form>
-			</div>
-		</div>
-	</div>
+				@if (!empty($transaksi->totalBayar))
+                <h3>Kirim Bukti Transfer</h3>
+                <form action="/pembayaran/upload" method="POST" enctype="multipart/form-data" id="formbayar-style">
+                    <div class="form-group">
+                        <label for="email">No Rekening</label>
+                        <input type="text" class="form-control" id="credit-card" name="norekening" placeholder="xxxx-xxxx-xxxx-xxxx" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Foto Bukti</label>
+                        <input type="file" class="form-control" placeholder="image.jpg" name="image" id="pwd">
+                    </div>
+                    {{ csrf_field() }}
+                    <button type="submit">Kirim</button>
+                </form>
+                @else
+                <div class="grup-tidakada-pembayaran">
+                    <h3 style="margin: 0;">Tidak ada Transaksi Pembayaran</h3>
+                </div>
+                @endif
+            </div>
+    </div>
 
 
-	<footer style="
-	margin-top: -7px;
-	">
-	<div class="col-xs-6">Copyright © Sekarang(2018)</div>
-	<div class="col-xs-6">Salam Damai To PPL-Agro</div>
-</footer>
+		<footer>
+			<div>Copyright © Outshop. Dibuat dengan cinta oleh kelompok ... ntah kelompok berapa ini.</div>
+		</footer>
 
 <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
 <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
@@ -174,7 +162,7 @@ input_credit_card = function(input)
             format_and_pos(char);
         }
     });
-    
+
     // backspace doesn't fire the keypress event
     input.addEventListener('keydown', function(e)
     {
@@ -184,13 +172,13 @@ input_credit_card = function(input)
         	format_and_pos('', this.selectionStart === this.selectionEnd);
         }
     });
-    
+
     input.addEventListener('paste', function()
     {
         // A timeout is needed to get the new value pasted
         setTimeout(function(){ format_and_pos(''); }, 50);
     });
-    
+
     input.addEventListener('blur', function()
     {
     	// reformat onblur just in case (optional)

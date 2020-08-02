@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use App\data;
 use App\Produk;
+use App\transaksi;
 use Auth;
 use Illuminate\Http\Request;
 use Hash;
@@ -21,9 +22,10 @@ class PekerjaController extends Controller
     public function index()
     {
       $no = 1;
-      $pekerjas = User::where('role',2)->orderBy('created_at','asc')->paginate(30);
+      $pekerjas = User::where('role',2)->orderBy('created_at','asc')->get();
+      $transaksis = transaksi::join('orders', 'transactions.order_id', '=', 'orders.id')->join('pembayaran', 'transactions.id_pembayaran', '=', 'pembayaran.id')->where('orders.status','sudah')->where('transactions.status', 'dibayar')->get();
       $produks = Produk::all();
-      return view('pekerja.tambah', compact('no','pekerjas','produks'));
+      return view('pekerja.tambah', compact('no','pekerjas','produks','transaksis'));
     }
 
     public function update_keamanan(Request $request, $id)
@@ -184,20 +186,20 @@ class PekerjaController extends Controller
           }
         }
       }else{
-        abort(404);  
+        abort(404);
       }
 
-     $image = $request->file('image');
-     $input['namefile'] = time().'-'.$image->getClientOriginalName();
-     $tempat = public_path('image/projek');
-     $image->move($tempat,$input['namefile']);
+      $image = $request->file('image');
+      $input['namefile'] = time().'-'.$image->getClientOriginalName();
+      $tempat = public_path('image/projek');
+      $image->move($tempat,$input['namefile']);
 
       $user->update([
         'name' => $request->name,
         'username' => $request->username,
         'image'     => $input['namefile'],
         'email' => $request->email
-      ]); 
+      ]);
       $data->update([
         'alamat' => $request->alamat,
         'nohp' => $request->nohp,
@@ -250,13 +252,13 @@ class PekerjaController extends Controller
         'email' => $request->email,
         'token'     => str_random(25),
         'password' => bcrypt($request->password),
-      ]); 
+      ]);
       data::create([
         'alamat' => $request->alamat,
         'nohp' => $request->nohp,
         'user_id'   => $user->id,
       ]);
-    } 
+    }
     return redirect('/pekerja');
   }
 
@@ -270,8 +272,11 @@ class PekerjaController extends Controller
     public function pembeli()
     {
       $no=1;
+      $pekerjas = User::where('role',2)->orderBy('created_at','asc')->get();
+      $transaksis = transaksi::join('orders', 'transactions.order_id', '=', 'orders.id')->join('pembayaran', 'transactions.id_pembayaran', '=', 'pembayaran.id')->where('orders.status','sudah')->where('transactions.status', 'dibayar')->get();
+      $produks = Produk::all();
       $pembelis = User::where('role',3)->get();
-      return view('pembeli.dafatar_pembeli', compact('pembelis','no'));
+      return view('pembeli.dafatar_pembeli', compact('pembelis','no','produks','transaksis','pekerjas'));
     }
 
     public function show($id)

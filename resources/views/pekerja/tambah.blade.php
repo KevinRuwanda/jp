@@ -2,9 +2,9 @@
 @section('title', 'Tambah Pekerja')
 @section('style')
 <style type="text/css">
-body{
-	background-color: #e7edee !important;
-}
+	body{
+		background-color: #e7edee !important;
+	}
 </style>
 @endsection
 @section('content')
@@ -45,7 +45,7 @@ body{
 					<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 				</div>
 				<div class="col-xs-8 detail-style" style="text-align: right;">
-					<p>12</p>
+					<p>{{count($transaksis)}}</p>
 					<h3>Transaksi</h3>
 				</div>
 			</div>
@@ -76,7 +76,7 @@ body{
 						<td class="button-aksi-table">
 							<a href="#!" data-toggle="modal" data-target="#editikan{{$pekerja->id}}">Edit</a>
 							<a href="/pekerja/{{$pekerja->id}}/destroy">Delete</a>
-							<a href="#!">Detail</a>
+							<a href="#!" data-toggle="modal" data-target="#detail{{$pekerja->id}}">Detail</a>
 						</td>
 					</tr>
 					@endforeach
@@ -256,6 +256,75 @@ body{
 					{{ csrf_field() }}
 					<input type="hidden" name="_method"  value="PUT">
 					<button type="submit" class="btn btn-block btn-default">Submit</button>
+				</form>
+			</div>
+		</div>
+
+	</div>
+</div>
+@endforeach
+
+<!-- Modal detail -->
+@foreach ($pekerjas as $pekerja)
+<div class="modal fade" id="detail{{$pekerja->id}}" role="dialog">
+	<div class="modal-dialog modal-md">
+
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header" id="new-modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title" id="title-moda-new">Detail Pekerja</h4>
+			</div>
+			<div class="modal-body">
+				<form  method="POST" action="" enctype="multipart/form-data">
+					<div class="image-style-detail-pekerja">
+						<img style="width: 100%;height: 100%" src="{{ asset('image/projek/'.$pekerja->image) }}" alt="">
+					</div>
+					<div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+						<label for="username">Username</label>
+						<input type="text" readonly class="form-control" name="username" value="{{ old('username') ? old('username') : $pekerja->username  }}" id="username">
+						@if ($errors->has('username'))
+						<span class="help-block">
+							<strong>{{ $errors->first('username') }}</strong>
+						</span>
+						@endif
+					</div>
+					<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+						<label for="name">Name</label>
+						<input type="text" readonly class="form-control" name="name" value="{{ old('name') ? old('name') : $pekerja->name  }}" id="name">
+						@if ($errors->has('name'))
+						<span class="help-block">
+							<strong>{{ $errors->first('name') }}</strong>
+						</span>
+						@endif
+					</div>
+					<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+						<label for="email">Email</label>
+						<input type="text" readonly value="{{ old('email') ? old('email') : $pekerja->email  }}" class="form-control" name="email" id="email">
+						@if ($errors->has('email'))
+						<span class="help-block">
+							<strong>{{ $errors->first('email') }}</strong>
+						</span>
+						@endif
+					</div>
+					<div class="form-group{{ $errors->has('alamat') ? ' has-error' : '' }}">
+						<label for="alamat">alamat</label>
+						<input type="text" readonly value="{{ old('alamat') ? old('alamat') : $pekerja->data->alamat  }}" class="form-control" name="alamat" id="alamat">
+						@if ($errors->has('alamat'))
+						<span class="help-block">
+							<strong>{{ $errors->first('alamat') }}</strong>
+						</span>
+						@endif
+					</div>
+					<div class="form-group{{ $errors->has('nohp') ? ' has-error' : '' }}">
+						<label for="nohp">nohp</label>
+						<input type="text" readonly value="{{ old('nohp') ? old('nohp') : $pekerja->data->nohp  }}" class="form-control" name="nohp" id="nohp">
+						@if ($errors->has('nohp'))
+						<span class="help-block">
+							<strong>{{ $errors->first('nohp') }}</strong>
+						</span>
+						@endif
+					</div>
 				</form>
 			</div>
 		</div>

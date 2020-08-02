@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class order extends Model
 {
-	protected $table = 'orders';
+	protected $table = 'produk';
 	public $timestamps = true;
 	protected $fillable = [
-		'jumlah', 'total_harga', 'status','pekerja_id','pemilik_id','produk_id'
+		'tgl_kedatangan', 'paket', 'nama_penerima','tanggal','alamat','foto_alamat','foto_ktp','jam_sampai','phone','email'
 	];
 	public function user()
 	{

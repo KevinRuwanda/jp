@@ -33,29 +33,28 @@ $(document).ready(function(){
 
   $('#make-3D-space #product-card').mouseenter(function(){
     $(this).addClass('animate');
-    $('div.carouselNext, div.carouselPrev').addClass('visible');      
- }); 
+    $('div.carouselNext, div.carouselPrev').addClass('visible');
+ });
 
   $('#make-3D-space #product-card').mouseleave(function(){
-    $(this).removeClass('animate');     
+    $(this).removeClass('animate');
     $('div.carouselNext, div.carouselPrev').removeClass('visible');
-  }); 
-  
+  });
+
 
 });
 
 $(document).ready(function(){
-  
+
   $('.element-card').on('click', function(){
-    
+
     if ( $(this).hasClass('open') ) {
       $(this).removeClass('open');
     } else {
       $('.element-card').removeClass('open');
       $(this).addClass('open');
     }
-    
-  });
-  
-});
 
+  });
+
+});

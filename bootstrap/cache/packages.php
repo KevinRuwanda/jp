@@ -1,32 +1,32 @@
 <?php return array (
-  'fideloper/proxy' => 
+  'fideloper/proxy' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
-  'laravel/tinker' => 
+  'laravel/tinker' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
-  'nesbot/carbon' => 
+  'nesbot/carbon' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Carbon\\Laravel\\ServiceProvider',
     ),
   ),
-  'thomaswelton/laravel-gravatar' => 
+  'thomaswelton/laravel-gravatar' =>
   array (
-    'providers' => 
+    'providers' =>
     array (
       0 => 'Thomaswelton\\LaravelGravatar\\LaravelGravatarServiceProvider',
     ),
-    'aliases' => 
+    'aliases' =>
     array (
       'Gravatar' => 'Thomaswelton\\LaravelGravatar\\Facades\\Gravatar',
     ),

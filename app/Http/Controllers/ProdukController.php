@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\Produk;
+use App\transaksi;
 use Illuminate\Support\Facades\Storage;
 
 class ProdukController extends Controller
@@ -18,8 +19,10 @@ class ProdukController extends Controller
     public function index()
     {
         $no = 1;
-        $produks = Produk::orderBy('created_at','asc')->paginate(30);
-        return view('ikan.daftar',compact('produks','no'));
+        $pekerjas = User::where('role',2)->orderBy('created_at','asc')->get();
+        $transaksis = transaksi::join('orders', 'transactions.order_id', '=', 'orders.id')->join('pembayaran', 'transactions.id_pembayaran', '=', 'pembayaran.id')->where('orders.status','sudah')->where('transactions.status', 'dibayar')->get();
+        $produks = Produk::orderBy('created_at','asc')->get();
+        return view('ikan.daftar',compact('produks','no','pekerjas','transaksis'));
     }
 
     /**
@@ -50,7 +53,7 @@ class ProdukController extends Controller
         ]);
         // menjadi slug
         $slug = str_slug($request->name, '-');
-        // chek apa lug ada yang sama
+        // chek apa slug ada yang sama
         if (Produk::where('slug',$slug)->first() != null) {
             $slug = $slug. '-' . time();
         }
@@ -73,7 +76,7 @@ class ProdukController extends Controller
             'satuan' => $request->satuan,
             'user_id'   => Auth::user()->id,
         ]);
-      } 
+      }
       return redirect('/produk');
   }
 
@@ -86,10 +89,10 @@ class ProdukController extends Controller
     public function show($slug)
     {
         // dd('masuk');
-       $ikan = Produk::where('slug',$slug)->first();
+     $ikan = Produk::where('slug',$slug)->first();
        // dd($ikan);
-       return view('ikan.single_ikan', compact('ikan'));
-    }
+     return view('ikan.single_ikan', compact('ikan'));
+ }
 
     /**
      * Show the form for editing the specified resource.
@@ -136,21 +139,21 @@ class ProdukController extends Controller
 
         if (Auth::check() && Auth::user()->role == 1) {
             $prodak->update([
-             'name' => $request->name,
-             'stok' => $request->stok,
-             'harga' => $request->harga,
-             'slug'  => $slug,
-             'deskripsi' => $request->deskripsi,
-             'image' => $input['namefile'],
-             'satuan' => $request->satuan,
-             'user_id'   => Auth::user()->id,
-         ]);
+               'name' => $request->name,
+               'stok' => $request->stok,
+               'harga' => $request->harga,
+               'slug'  => $slug,
+               'deskripsi' => $request->deskripsi,
+               'image' => $input['namefile'],
+               'satuan' => $request->satuan,
+               'user_id'   => Auth::user()->id,
+           ]);
 
         }else {
-           abort(404);
-       }
-       return redirect('/produk');
-   }
+         abort(404);
+     }
+     return redirect('/produk');
+ }
 
     /**
      * Remove the specified resource from storage.
@@ -160,14 +163,14 @@ class ProdukController extends Controller
      */
     public function destroy($id)
     {
-     $produk = Produk::findOrFail($id);
+       $produk = Produk::findOrFail($id);
 
-     if (Auth::check() && Auth::user()->role == 1) {
-      $produk->delete();
-  }else {
-     abort(404);
- }
+       if (Auth::check() && Auth::user()->role == 1) {
+          $produk->delete();
+      }else {
+       abort(404);
+   }
 
- return redirect('/produk');
+   return redirect('/produk');
 }
 }

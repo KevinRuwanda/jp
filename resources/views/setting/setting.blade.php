@@ -5,7 +5,7 @@
 
 
 <div class="grup-regis-all">
-    <h1>Setting</h1>
+    <h1>Pengaturan Akun</h1>
     <div class="width-content">
         <form  method="POST" enctype="multipart/form-data" action="/Setting-edit/{{$user->id}}">
             <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
@@ -18,7 +18,7 @@
                 @endif
             </div>
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                <label for="name">Name</label>
+                <label for="name">Nama</label>
                 <input type="text" class="form-control" name="name" id="name" value="{{ old('name') ? old('name') : $user->name  }}">
                 @if ($errors->has('name'))
                 <span class="help-block">
@@ -27,7 +27,7 @@
                 @endif
             </div>
             <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                <label for="name">Image</label>
+                <label for="name">Foto Profil</label>
                 <input type="file" style="font-size: inherit;" class="form-control" name="image" id="image" value="{{ old('image') ? old('image') : $user->image  }}">
                 @if ($errors->has('image'))
                 <span class="help-block">
@@ -63,7 +63,7 @@
                 @endif
             </div>
             <div class="form-group{{ $errors->has('passwordLama') ? ' has-error' : '' }}">
-                <label for="password">password Lama</label>
+                <label for="password">Password Lama</label>
                 <input type="Password" class="form-control" name="passwordLama" id="passwordLama" >
                 @if ($errors->has('passwordLama'))
                 <span class="help-block">
@@ -72,7 +72,7 @@
                 @endif
             </div>
             <div class="form-group{{ $errors->has('passwordBaru') ? ' has-error' : '' }}">
-                <label for="password">password Baru</label>
+                <label for="password">Password Baru</label>
                 <input type="Password" class="form-control" name="passwordBaru" id="passwordBaru" >
                 @if ($errors->has('passwordBaru'))
                 <span class="help-block">

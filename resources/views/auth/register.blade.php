@@ -18,7 +18,7 @@
                 @endif
             </div>
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                <label for="name">Name</label>
+                <label for="name">Nama Lengkap</label>
                 <input type="text" class="form-control" name="name" id="name">
                 @if ($errors->has('name'))
                 <span class="help-block">
@@ -27,7 +27,7 @@
                 @endif
             </div>
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <label for="email">Email</label>
+                <label for="email">E-mail</label>
                 <input type="text" class="form-control" name="email" id="email">
                 @if ($errors->has('email'))
                 <span class="help-block">
@@ -49,7 +49,7 @@
                 <input type="Password" class="form-control" id="pass-kon" name="password_confirmation" required>
             </div>
             {{ csrf_field() }}
-            <button>Register</button>
+            <button class="button1">Daftar</button>
         </form>
     </div>
 </div>
